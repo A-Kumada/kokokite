@@ -1,0 +1,16 @@
+<div class="container">
+  <div class='row'>
+    <div class="col-8 offset-1 pb-5">
+      <h5>カテゴリ編集</h5>
+    </div>
+  </div>
+
+  <%= form_with model: @category, url: admin_category_path(@category.id), method: :patch do |category| %>
+
+  <div class='row'>
+    <div class="col-1.5 pr-5"><p>ジャンル名</p></div>
+    <div class="col-2"><%= category.text_field :category_name %></div>
+    <div class="col-2 pl-5"><%= category.submit '変更を保存',class:"btn btn-success" %></div>
+    <% end %>
+  </div>
+</div>

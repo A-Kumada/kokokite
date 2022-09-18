@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 offset-md-3">
+
+      <%= form_with model: @post, url: posts_path  do |f| %>
+      <table>
+        <tr>
+          <td>写真(任意)</td><td><%= f.file_field :image, accept: "image/*" %></td>
+        </tr>
+         <tr>
+          <td>タイトル</td><td><%= f.text_field :title %></td>
+        </tr>
+        <tr>
+          <td>カテゴリ</td><td><%= f.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %></td>
+        </tr>
+        <tr>
+          <td>概要</td><td><%= f.text_area :outline, :size=>"30x5",:placeholder=>"概要を書いてください" %></td>
+        </tr>
+        <tr>
+          <td>必要なもの</td><td><%= f.text_field :necessaries %></td>
+        </tr>
+        <tr>
+          <td>ポイント</td><td><%= f.text_area :point %></td>
+        </tr>
+
+      </table>
+      <div id="post_procedures_forms">
+        <%= f.fields_for :procedures do | b | %>
+          <div class="post_procedures_forms">
+            <span class='label'>手順</span><span class='form'><%= b.text_field :content %></span>
+          </div>
+        <% end %>
+      </div>
+      <div id="form_append_button">追加する</div>
+      <%= f.submit "新規登録", class:"btn btn-success btn-lg" %>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div id="extend_form">
+  <div class="post_procedures_forms">
+    <span class='label'>手順</span><span class='form'><input type="text" name="" id=""></span>
+    <span class="close_button">&times;</span>
+  </div>
+</div>
+
+<style>
+  #extend_form {
+    display: none;
+  }
+</style>
+
+<script>
+const button = document.getElementById('form_append_button')
+
+button.addEventListener('click', e => {
+  const forms = document.getElementById('post_procedures_forms')
+  const lastForm = forms.lastElementChild
+  const lastID = lastForm.getElementsByClassName('form')[0].firstElementChild.getAttribute('id')
+  const count = parseInt(lastID.replace('post_procedures_attributes_', '').replace('_content', ''), 10) + 1;
+  const extend_form = document.getElementById('extend_form').firstElementChild.cloneNode(true)
+  extend_form.querySelector('span:nth-child(2) input').setAttribute('id', `post_procedures_attributes_${count}_content`)
+  extend_form.querySelector('span:nth-child(2) input').setAttribute('name', `post[procedures_attributes][${count}][content]`)
+  forms.append(extend_form)
+  extend_form.lastElementChild.addEventListener('click', e => {
+    extend_form.remove();
+  });
+});
+let forms = document.querySelectorAll("#post_procedures_forms .post_procedures_forms")
+for(var i = 0; i < forms.length; i++){
+  if (i != 0) {
+    const form = forms[i]
+    const target = form.querySelector('span:last-child')
+    const span = document.createElement('span')
+    span.setAttribute('class', 'close_button')
+    span.textContent = "ｘ"
+    form.append(span);
+    form.addEventListener('click', e => {
+      form.remove();
+    });
+  }
+}
+
+</script>

@@ -6,11 +6,41 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg p-5">
+      <div class="container">
+      <a class="navbar-brand" href="/">
+      <span class="pl-5 pr-5 pt-2 pb-2 border text-dark">LOGO</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+
+        <% if user_signed_in? %>
+        <li><%= link_to about_path,class:"nav-link border text-dark " do %>マイページ<% end %></li>
+        <%= link_to destroy_user_session_path, method: :delete, class:"nav-link border text-dark ml-5" do %>
+          ログアウト
+        <% end %>
+
+        <% else %>
+
+        <li><%= link_to new_user_registration_path, class:"nav-link text-dark border ml-5" do %>新規登録<% end %></li>
+        <li><%= link_to new_user_session_path, class:"nav-link text-dark border ml-5" do %>ログイン<% end %></li>
+        <li><%= link_to "ゲストログイン（閲覧用）",users_guest_sign_in_path, class:"nav-link text_dark", method: :post %></li>
+       <% end %>
+
+      </ul>
+      </div>
+      </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>

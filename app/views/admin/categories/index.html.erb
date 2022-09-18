@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 offset-md-3">
+
+    <h3>カテゴリ一覧　変更・追加</h3>
+    <%= form_with model: @category, url: admin_categories_path do |f| %>
+      <table>
+        <td class="pr-5">カテゴリ名</td>
+        <td class="pr-5"><%= f.text_field :category_name %></td>
+        <td><%= f.submit '新規登録' %></td>
+      </table>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-10 offset-md-3 pt-5">
+
+    <table class="table table-hover table-inverse">
+     <tr class="bg-light">
+       <td class="pl-5">カテゴリ</td>
+       <td>　</td>
+     </tr>
+     <% @categories.each do |category| %>
+     <tr>
+       <td><%= category.category_name %></td>
+       <td><%= link_to edit_admin_category_path(category.id),class:"text-right btn btn-success" do %>編集する
+       <% end %>
+       </td>
+     </tr>
+    <% end %>
+   </table>
+
+    </div>
+  </div>
+</div>

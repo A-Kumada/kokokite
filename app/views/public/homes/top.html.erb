@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 offset-md-3">
+
+    <h3>カテゴリ一覧</h3>
+    <% @categories.each do |category| %>
+      <td>
+        <%= link_to category.category_name, posts_path(category_id: category.id), class: "text-secondary" %>
+        <%#= link_to admin_category_path(category) do %>
+        <%#= category.category_name %>
+      </td>
+      <%# end %>
+    <% end %>
+
+    </div>
+  </div>
+</div>

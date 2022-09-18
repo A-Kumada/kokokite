@@ -1,0 +1,13 @@
+  ja:
+    enums:
+      user:
+        area:
+          hokkaido: "北海道"
+          tohoku: "東北"
+          kanto: "関東"
+          chubu: "中部"
+          kinki: "近畿"
+          chugoku: "中国"
+          shikoku: "四国"
+          kyushu: "九州"
+          okinawa: "沖縄"
