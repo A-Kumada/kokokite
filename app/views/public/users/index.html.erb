@@ -1,0 +1,15 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12 offset-1 pb-3">
+       <div class="rounded pb-4 pr-4">
+      <% @posts.each do |post| %>
+        <%= link_to post_path(post) do %>
+          <%= post.title %>
+        <% end %>
+        <%= post.outline.truncate(40) %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

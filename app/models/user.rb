@@ -7,7 +7,10 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  
+  validates :nickname, :name_kana,
+    length: { maximum: 255 }
 
-  enum area: { hokkaido: 0, tohoku: 1, kanto: 2, chubu: 3, kinki: 4, chugoku: 5, shikoku: 6, kyushu: 7,okinawa: 8 }
+  enum area: { "北海道": 0, "東北": 1, "関東": 2, "中部": 3, "近畿": 4, "中国": 5, "四国": 6, "九州": 7,"沖縄": 8 }
 
 end

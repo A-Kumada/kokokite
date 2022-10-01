@@ -8,26 +8,34 @@
           <td>写真(任意)</td><td><%= f.file_field :image, accept: "image/*" %></td>
         </tr>
          <tr>
-          <td>タイトル</td><td><%= f.text_field :title %></td>
+          <td>タイトル</td><td><%= f.text_field :title,:size=>"70" %>255文字まで</td>
         </tr>
         <tr>
           <td>カテゴリ</td><td><%= f.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %></td>
         </tr>
         <tr>
-          <td>概要</td><td><%= f.text_area :outline, :size=>"30x5",:placeholder=>"概要を書いてください" %></td>
+          <td>タグ</td>
+          <td><%= f.text_area :tag_name, placeholder: "上記カテゴリに関するタグをスペース区切りで5つまで入力(例 時短 作り置き )" %>
+            <%#= f.fields_for :tags do | b | %>
+            <%#= b.text_area :tag_name, placeholder: "上記カテゴリに関するタグをスペース区切りで5つまで入力(例 時短 作り置き )",:size=>"50x2", class: 'uk-input uk-form-small' %>
+            <%# end %>
+          </td>
+       </tr>
+        <tr>
+          <td>概要</td><td><%= f.text_area :outline, :size=>"70x5",:placeholder=>"概要を書いてください" %></td>
         </tr>
         <tr>
-          <td>必要なもの</td><td><%= f.text_field :necessaries %></td>
+          <td>必要なもの</td><td><%= f.text_area :necessaries,:size=>"70x3" %></td>
         </tr>
         <tr>
-          <td>ポイント</td><td><%= f.text_area :point %></td>
+          <td>ポイント</td><td><%= f.text_area :point,:size=>"70x4" %></td>
         </tr>
 
       </table>
       <div id="post_procedures_forms">
         <%= f.fields_for :procedures do | b | %>
           <div class="post_procedures_forms">
-            <span class='label'>手順</span><span class='form'><%= b.text_field :content %></span>
+            <span class='label'>手順</span><span class='form'><%= b.text_area :content,:size=>"70x2" %></span>
           </div>
         <% end %>
       </div>

@@ -6,6 +6,9 @@
           <td>タイトル</td><td><%= @post.title %></td>
         </tr>
         <tr>
+          <td>カテゴリ</td><td><%= @post.category.category_name %></td>
+        </tr>
+        <tr>
           <td>概要</td><td><%= @post.outline  %></td>
         </tr>
         <tr>
@@ -13,6 +16,13 @@
         </tr>
         <tr>
           <td>ポイント</td><td><%= @post.point %></td>
+        </tr>
+         <tr>
+          <td>
+            <% @post.tags.each do |tag| %>
+            <%= tag.tag_name %>
+            <% end %>
+          </td>
         </tr>
         <tr>
           <td>手順</td>
@@ -24,9 +34,45 @@
         </tr>
       </table>
 
-       <div class="pt-3"><%= link_to edit_post_path,class:"btn btn-success" do %>編集する
-       <% end %>
+      <div>
+        <% if current_user.id == @post.user_id%>
+        <%= link_to "編集する", edit_post_path,class:"btn btn-success" %>
+        <%= link_to "削除する", post_path(@post), method: :delete, "data-confirm" => "本当に消しますか?" %></td>
+        <% end %>
 
+      </div>
+
+      <% if @post.favorited_by?(current_user) %>
+      <p>
+        <%= link_to post_favorites_path(post_id: @post), method: :delete do %>
+          ♥<%= @post.favorites.count %> いいね
+        <% end %>
+      </p>
+      <% else %>
+      <p>
+        <%= link_to post_favorites_path(post_id: @post), method: :post do %>
+          ♡<%= @post.favorites.count %> いいね
+        <% end %>
+      </p>
+      <% end %>
+
+      <div>
+        <p>コメント件数：<%= @post.comments.count %></p>
+        <% @post.comments.each do |comment| %>
+        <%= comment.user.nickname %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+       
+        <% if comment.user == current_user %>
+          <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+        <% end %>
+        <% end %>
+      </div>
+      <div>
+        <%= form_with model: [@post, @comment], url: post_comments_path(post_id: @post) do |f| %>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

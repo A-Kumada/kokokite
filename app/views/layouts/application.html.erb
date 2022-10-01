@@ -22,9 +22,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
+        
+      <%= form_tag posts_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
+      <p>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :title => nil %>
+      </p>
+      <% end %>
 
         <% if user_signed_in? %>
-        <li><%= link_to about_path,class:"nav-link border text-dark " do %>マイページ<% end %></li>
+        <li><%= link_to mypage_path,class:"nav-link border text-dark " do %>マイページ<% end %></li>
+        <%= link_to new_post_path,class:"nav-link border text-dark " do %>投稿<% end %>
         <%= link_to destroy_user_session_path, method: :delete, class:"nav-link border text-dark ml-5" do %>
           ログアウト
         <% end %>

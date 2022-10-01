@@ -1,16 +1,18 @@
 class Post < ApplicationRecord
 has_one_attached :image
 
-def get_image
-  unless image.attached?
-    file_path = Rails.root.join('app/assets/images/no_image.jpg')
-    image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-  end
-    image
-end
-
+validates :category_id, presence: true
 validates :title, presence: true
+validates :outline, presence: true
+validates :necessaries, presence: true
+validates :point, presence: true
+validates :procedures, presence: true
 
+validates :title, :necessaries,
+    length: { maximum: 255 }
+
+has_many :tagmaps, dependent: :destroy
+has_many :tags, through: :tagmaps
 belongs_to :user
 belongs_to :category
 has_many :comments, dependent: :destroy
@@ -23,5 +25,38 @@ def content_present?(attributes)
       Procedure.find(attributes[:id]).destroy if attributes[:content] == nil
     end
 end
+
+def get_image
+  unless image.attached?
+    file_path = Rails.root.join('app/assets/images/no_image.jpg')
+    image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  end
+    image
+end
+
+def favorited_by?(user) #いいね
+  favorites.exists?(user_id: user.id)
+end
+  
+def self.search(search) #検索機能
+  Post.where(['title LIKE ?', "%#{search}%"])
+end
+  
+  def save_posts(tags)
+   current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
+   old_tags = current_tags - tags
+   new_tags = tags - current_tags
+   # Destroy
+    old_tags.each do |old_name|
+      self.tags.delete Tag.find_by(tag_name:old_name)
+    end
+
+   # Create
+    new_tags.each do |new_name|
+      post_tag = Tag.find_or_create_by(tag_name:new_name)
+      self.tags << post_tag
+    end
+   
+  end
 
 end

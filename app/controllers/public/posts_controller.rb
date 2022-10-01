@@ -7,7 +7,11 @@ class Public::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
 
+    @tag_list = params[:post][:tag_name].split(nil)
+    @post.image.attach(params[:post][:image])
+    @post.user_id = current_user.id
     if @post.save
+      @post.save_posts(@tag_list)
       redirect_to post_path(@post)
     else
       render :new
@@ -15,17 +19,29 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @user = current_user
-    @posts = Post.all
+    if params[:search].present?
+      @posts = Post.search(params[:search])
+    elsif params[:tag_id].present?
+      @tag = Tag.find(params[:tag_id])
+      @posts = @tag.post.order(created_at: :desc)
+    else
+      @posts = Post.all.order(created_at: :desc)
+    end
+      @tag_lists = Tag.all
+      #@items = Kaminari.paginate_array(items).page(params[:page]).per(10)
+
     if params[:category_id].present?
       #presentメソッドでparams[:category_id]に値が含まれているか確認 => trueの場合下記を実行
       @category = Category.find(params[:category_id])
       @posts = @category.posts
     end
+
+    @tags = Tag.all
   end
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
   end
 
   def edit
@@ -49,14 +65,15 @@ class Public::PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    post = Post.find(params[:id])
     post.destroy
     redirect_to '/posts'
   end
 
 
   def post_params
-    params.require(:post).permit(:user_id, :category_id, :title, :outline, :necessaries, :image, :point, procedures_attributes: [:content, :post_id,:id, :_destroy])
+    params.require(:post).permit(:user_id, :category_id, :title, :outline, :necessaries, :image, :point, tags_attributes:[:tag_name], procedures_attributes: [:content, :post_id,:id, :_destroy])
   end
+
 
 end

@@ -4,13 +4,23 @@
       <div class="d-flex">
       <% @posts.each do |post| %>
         <div class="rounded pb-4 pr-4">
-          <%#= link_to post_path(post) do %>
           <%#= image_tag post.get_image(180,180) %>
-          <%# end %>
+          <%= link_to post_path(post) do %>
           <%= post.title %><br>
-          <%= post.point %>
-        <div>
+          <% end %>
+          <%= post.outline.truncate(40) %>
+          <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
+        </div>
       <% end %>
+      <br>
+      
+      <% @tag_lists.each do |list| %>
+      <%= link_to list.tag_name, posts_path(tag_id: list.id), class: 'tag_list' %>
+      <% end %>
+      
+      <% @tags.each do |tag| %>
+     <%= link_to "##{tag.tag_name}", posts_path(tag), class: 'smaller tag_list' %>
+     <% end %>
       </div>
     </div>
   </div>

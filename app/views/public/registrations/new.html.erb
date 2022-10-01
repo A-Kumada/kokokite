@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= f.label :エリア %><br />
-    <%= f.select :area, User.areas, {}, {class: 'area'} %>
+    <%= f.select :area, User.areas, {}, {class: 'area'}.to_i %>
   </div>
 
   <div class="field">
