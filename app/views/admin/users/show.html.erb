@@ -1,25 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 offset-md-3">
-      <table>
+    <div class="col-md-10 offset-md-1">
+      <table class="">
         <tr>
-          <td>ユーザーID</td><td><%= @user.id %></td>
+          <td class="pb-3" width="200">ユーザーID</td><td class="pb-3"><%= @user.id %></td>
         </tr>
         <tr>
-          <td>ニックネーム</td><td><%= @user.nickname %></td>
+          <td class="pb-3" width="200">ニックネーム</td><td class="pb-3"><%= @user.nickname %></td>
         </tr>
         <tr>
-          <td>氏名カナ</td><td><%= @user.name_kana %></td>
+          <td class="pb-3" width="200">氏名カナ</td><td class="pb-3"><%= @user.name_kana %></td>
         </tr>
         <tr>
-          <td>エリア</td><td><%= @user.area %></td>
+          <td class="pb-3" width="200">エリア</td><td class="pb-3"><%= @user.area %></td>
         </tr>
         <tr>
-          <td>メールアドレス</td><td><%= @user.email %></td>
+          <td class="pb-3" width="200">メールアドレス</td><td class="pb-3"><%= @user.email %></td>
         </tr>
         <tr>
-          <td>会員ステータス</td>
-          <td>
+          <td class="pb-3" width="200">会員ステータス</td>
+          <td class="pb-3">
             <% if @user.is_active == true %>
             <%= "有効" %>
             <% else %>
@@ -28,8 +28,10 @@
           </td>
         </tr>
       </table>
-      <%= link_to edit_admin_user_path,class:"btn btn-success" do %>編集する
-       <% end %>
+
+      <%= link_to "編集する", edit_admin_user_path,class:"btn btn-success" %>
+
+      <%=link_to "投稿一覧", admin_posts_path(user_id: @user.id),class:"btn btn-success" %>
     </div>
   </div>
 </div>

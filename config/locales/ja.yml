@@ -1,13 +1,12 @@
-  ja:
-    enums:
-      user:
-        area:
-          hokkaido: "北海道"
-          tohoku: "東北"
-          kanto: "関東"
-          chubu: "中部"
-          kinki: "近畿"
-          chugoku: "中国"
-          shikoku: "四国"
-          kyushu: "九州"
-          okinawa: "沖縄"
+ja:
+  enums:
+    post:
+      status:
+        public: "公開"
+        private: "非公開"
+  # ja: # 日本語の設定を行う
+  #   enums: # enumの設定を行う
+  #     order: # モデル名（Orderモデルに対して）
+  #       status: # カラム名（payment_methodカラムに対して）
+  #         public: "クレジットカード"
+  #         private: "銀行振込"

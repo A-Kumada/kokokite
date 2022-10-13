@@ -1,0 +1,29 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12 offset-1 pb-3">
+      <h6>お気に入り一覧</h6>
+        <table>
+          <% @favorites.each do |favorite| %>
+            <tr>
+              <td class="pt-2"><%= favorite.post.user.nickname %></td>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to post_path(favorite.post) do %>
+                  <%= favorite.post.title %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td><%= favorite.post.outline.truncate(30) %></td>
+            </tr>
+            <tr>
+              <td class="pb-2 border-bottom">カテゴリー:<%= favorite.post.category.category_name %></td>
+            </tr>
+          <% end %>
+        </table>
+
+    </div>
+  </div>
+</div>

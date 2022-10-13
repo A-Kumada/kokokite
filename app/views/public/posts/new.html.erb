@@ -30,19 +30,37 @@
         <tr>
           <td>ポイント</td><td><%= f.text_area :point,:size=>"70x4" %></td>
         </tr>
+        <tr>
 
-      </table>
-      <div id="post_procedures_forms">
-        <%= f.fields_for :procedures do | b | %>
-          <div class="post_procedures_forms">
-            <span class='label'>手順</span><span class='form'><%= b.text_area :content,:size=>"70x2" %></span>
+          <div id="post_procedures_forms">
+          <%= f.fields_for :procedures do | b | %>
+            <div class="post_procedures_forms">
+              <td><span class='label'>手順</span></td><td><span class='form'><%= b.text_area :content,:size=>"70x2" %></span></td>
+            </div>
+          <% end %>
           </div>
-        <% end %>
-      </div>
-      <div id="form_append_button">追加する</div>
-      <%= f.submit "新規登録", class:"btn btn-success btn-lg" %>
+        </tr>
+        <tr>
+          <td><div id="form_append_button">追加する</div></td>
+         </tr>
+      </table>
 
-      <% end %>
+
+  <%= f.label(:public, for: nil, class:'post-status__label') do %>
+      <%= f.radio_button :status, :public %>
+      <%= Post.statuses_i18n[:public] %>
+  <% end %>
+  <%= f.label(:private, for: nil, class:'post-status__label') do %>
+      <%= f.radio_button :status, :private %>
+      <%= Post.statuses_i18n[:private] %>
+  <% end %>
+
+
+
+          <%= f.submit "新規登録", class:"btn btn-success btn-lg" %>
+
+          <% end %>
+
     </div>
   </div>
 </div>

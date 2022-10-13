@@ -5,7 +5,7 @@
     <h3>カテゴリ一覧</h3>
     <% @categories.each do |category| %>
       <td>
-        <%= link_to category.category_name, posts_path(category_id: category.id), class: "text-secondary" %>
+        <%= link_to category.category_name, posts_path(category_id: category.id), class: "pr-4" %>
         <%#= link_to admin_category_path(category) do %>
         <%#= category.category_name %>
       </td>

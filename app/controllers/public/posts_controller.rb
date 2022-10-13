@@ -1,4 +1,6 @@
 class Public::PostsController < ApplicationController
+
+
   def new
     @post = current_user.posts.build
     @post.procedures.build
@@ -19,36 +21,53 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+
     if params[:search].present?
-      @posts = Post.search(params[:search])
+
+      @posts = Post.search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
     elsif params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
       @posts = @tag.post.order(created_at: :desc)
+    elsif params[:category_id].present?
+      @category = Category.find(params[:category_id])
+      @posts = @category.posts.sort {|a,b| b.favorites.size <=> a.favorites.size}
     else
-      @posts = Post.all.order(created_at: :desc)
+      @user = User.find(params[:user_id])
+      @posts = @user.posts.all.order(created_at: :desc)
     end
       @tag_lists = Tag.all
-      #@items = Kaminari.paginate_array(items).page(params[:page]).per(10)
 
-    if params[:category_id].present?
-      #presentメソッドでparams[:category_id]に値が含まれているか確認 => trueの場合下記を実行
-      @category = Category.find(params[:category_id])
-      @posts = @category.posts
-    end
+
 
     @tags = Tag.all
+    @categories = Category.all
+
+  end
+
+  def index_user
+
   end
 
   def show
     @post = Post.find(params[:id])
-    @comment = Comment.new
+    if @post.status == "private" && @post.user != current_user
+      respond_to do |format|
+        format.html { redirect_to posts_path(user_id: @post.user_id), notice: 'このページにはアクセスできません' }
+      end
+    else
+      @comment = Comment.new
+      @categories = Category.all
+      @tags = Tag.all
+      @tag_lists = Tag.all
+    end
+    #@user = User.find(params[:id])
   end
 
   def edit
     @post = Post.find(params[:id])
-
     unless
-      @post.user == current_user
+      @post.user == current_user || admin_signed_in?
+
       redirect_to posts_path
     end
   end
@@ -72,7 +91,7 @@ class Public::PostsController < ApplicationController
 
 
   def post_params
-    params.require(:post).permit(:user_id, :category_id, :title, :outline, :necessaries, :image, :point, tags_attributes:[:tag_name], procedures_attributes: [:content, :post_id,:id, :_destroy])
+    params.require(:post).permit(:user_id, :category_id, :title, :outline, :necessaries, :image, :point, :status, :image, tags_attributes:[:tag_name], procedures_attributes: [:content, :post_id,:id, :_destroy])
   end
 
 

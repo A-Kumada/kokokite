@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+
+      <div class="pt-2 pb-2 pl-3 pr-2">
+      <p>カテゴリ検索</p>
+      <% categories.each do |category| %>
+      <td>
+        <%= link_to category.category_name, posts_path(category_id: category.id), class: "text-secondary" %>
+      </td><br>
+      <%# end %>
+      <% end %>
+      <br><br>
+      <p>タグ検索</p>
+      <% tag_lists.each do |list| %>
+        <%= link_to list.tag_name, posts_path(tag_id: list.id), class: 'tag_list' %>
+      <% end %>
+
+    <%# tags.each do |tag| %>
+     <%#= link_to "##{tag.tag_name}", posts_path(tag), class: 'smaller tag_list' %>
+    <%# end %>
+
+      </div>
+    </div>

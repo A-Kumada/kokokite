@@ -1,24 +1,42 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-12 offset-1 pb-3">
-      <h4>マイページ</h4>
+    <div class="col-md-8 pb-3">
+      <h5>プロフィールを変更する</h5>
     </div>
   </div>
 
     <div class="row">
-    <div class="col-md-8 px-0">
-      <h5 class="pb-1 font-weight-bold">登録情報　<%= link_to "編集する", edit_user_path(current_user),class:"btn btn-success" %></h5>
+      <div class="col-md-6">
+        <h5 class="pb-1 font-weight-bold">登録情報　<%= link_to "編集する", edit_user_path(current_user),class:"btn btn-success" %></h5>
 
-      <table class="table table-bordered">
-        <tr><td class="table-secondary" scope="col" style="width: 30%">ニックネーム</td><td><%= @user.nickname %></td></tr>
-        <tr><td class="table-secondary">氏名カナ<td><%= @user.name_kana %></td></tr>
-        <tr><td class="table-secondary">エリア</td><td><%= @user.area %></td></tr>
-        <tr><td class="table-secondary">メールアドレス</td><td><%= @user.email %></td></tr>
-      </table>
+        <table class="table table-bordered">
+          <tr><td class="table-secondary w-25">ニックネーム</td><td class="w-25"><%= @user.nickname %></td></tr>
+          <tr><td class="table-secondary">氏名カナ<td><%= @user.name_kana %></td></tr>
+          <tr><td class="table-secondary">エリア</td><td><%= @user.area %></td></tr>
+          <tr><td class="table-secondary">メールアドレス</td><td><%= @user.email %></td></tr>
+        </table>
       <br><br>
-      <%= link_to "自分の投稿一覧", users_path %>
-      <%#= link_to "ブックマーク",%>
-    </div>
+      <% @user.posts.each do |post| %>
+      <table>
+        <div class="border-bottom">
+          <tr>
+            <td class="pt-2">
+              <%= link_to post_path(post) do %>
+                <%= post.title %></td>
+              <% end %>
+          </tr>
+          <tr>
+            <td class="pb-2"><%= post.outline.truncate(30)%></td>
+          </tr>
+        </div>
+      </table>
+      <% end %>
+
+      </div>
+      <div class="col-md-2">
+        <%= link_to "お気に入り", bookmark_path, class:"btn btn-info" %>
+      </div>
+
   </div>
 </div>

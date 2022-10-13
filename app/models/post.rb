@@ -11,6 +11,8 @@ validates :procedures, presence: true
 validates :title, :necessaries,
     length: { maximum: 255 }
 
+enum status: { public: 0, private: 1 }, _prefix: true
+
 has_many :tagmaps, dependent: :destroy
 has_many :tags, through: :tagmaps
 belongs_to :user
@@ -26,22 +28,22 @@ def content_present?(attributes)
     end
 end
 
-def get_image
+def get_image(width, height)
   unless image.attached?
-    file_path = Rails.root.join('app/assets/images/no_image.jpg')
-    image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    file_path = Rails.root.join('app/assets/images/no_image.jpeg')
+    image.attach(io: File.open(file_path), filename: 'default-image.jpeg', content_type: 'image/jpeg')
   end
-    image
+    image.variant(resize_to_limit: [width, height]).processed
 end
 
-def favorited_by?(user) #いいね
+def favorited_by?(user)
   favorites.exists?(user_id: user.id)
 end
-  
+
 def self.search(search) #検索機能
   Post.where(['title LIKE ?', "%#{search}%"])
 end
-  
+
   def save_posts(tags)
    current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
    old_tags = current_tags - tags
@@ -56,7 +58,7 @@ end
       post_tag = Tag.find_or_create_by(tag_name:new_name)
       self.tags << post_tag
     end
-   
+
   end
 
 end

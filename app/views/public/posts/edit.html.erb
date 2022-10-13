@@ -25,35 +25,7 @@
         </tr>
         <tr>
           <td>　</td>
-          <td><%= post.text_area :tag_name %></td><div class="container">
-
-  <div class="row">
-    <div class="col-sm-12 pb-5">
-      <h4 class="pb-4"><%=@customer.last_name %><%=@customer.first_name %>さんの会員情報</h4>
-
-  <%= form_with model: @customer, url: admin_customer_path(@customer), method: :patch do |f| %>
-    <table>
-      <tr><td width="200" class="pb-2"><%= f.label :"会員ID" %></td><td><%= @customer.id %></td></tr>
-      <tr><td class="pb-2"><%= f.label :"氏名" %></td><td class="pb-2"><%= f.text_field :last_name %></td><td class="pb-2"><%= f.text_field :first_name %></td></tr>
-      <tr><td class="pb-2"><%= f.label :"フリガナ" %></td><td class="pb-2"><%= f.text_field :last_name_kana %></td><td class="pb-2"><%= f.text_field :first_name_kana %></td></tr>
-      <tr><td class="pb-2"><%= f.label :"郵便番号" %></td><td class="pb-2"><%= f.text_field :postal_code %></td></tr>
-      <tr><td class="pb-2"><%= f.label :"住所" %></td><td colspan="2" class="pb-2"><%= f.text_field :address,:size =>"60" %></th></tr>
-      <tr><td class="pb-2"><%= f.label :"電話番号" %></td><td class="pb-2"><%= f.text_field :telephone_number %></td></tr>
-      <tr><td class="pb-3"><%= f.label :"メールアドレス" %></td><td class="pb-3"><%= f.text_field :email %></td></tr>
-      <tr><td class="pb-2"><%= f.label :"会員ステータス"%></td>
-        <td  class="pb-2">
-          <%= f.radio_button :is_active, :true %>
-          <%= f.label :is_active, "有効" %>
-          <%= f.radio_button :is_active, :false %>
-          <%= f.label :is_active, "退会" %><br>
-        </td>
-      <tr class="pt-4"><td>　</td><td class="pt-4"><%= f.submit "変更を保存" ,class:"btn btn-success btn-lg" %></td></tr>
-    </table>
-  </div>
-
-  <% end %>
-  </div>
-</div>
+          <td><%= post.text_area :tag_name %></td>
         </tr>
       </table>
 
@@ -65,6 +37,19 @@
         <% end %>
       </div>
       <div id="form_append_button">追加する</div>
+
+        <%= post.label(:public, for: nil, class:'post-status__label') do %>
+      <%= post.radio_button :status, :public %>
+      <%= Post.statuses_i18n[:public] %>
+  <% end %>
+  <%= post.label(:private, for: nil, class:'post-status__label') do %>
+      <%= post.radio_button :status, :private %>
+      <%= Post.statuses_i18n[:private] %>
+  <% end %>
+
+
+
+
       <%= post.submit "内容を保存する", class:"btn btn-success btn-lg" %>
 
 
