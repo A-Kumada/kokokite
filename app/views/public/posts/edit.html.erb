@@ -1,27 +1,33 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 offset-md-3">
+    <div class="col-md-12 offset-md-2">
 
 
     <%= form_with model: @post, url: post_path(@post), method: :patch do |post| %>
       <table>
         <tr>
-          <td>写真(任意)</td><td><%= post.file_field :image, accept: "image/*" %></td>
+          <td>写真(任意)</td>
+          <td><%= post.file_field :image, accept: "image/*" %></td>
         </tr>
          <tr>
-          <td>タイトル</td><td><%= post.text_field :title ,:size=>"70" %></td>
+          <td>タイトル</td>
+          <td><%= post.text_field :title ,:size=>"70" %></td>
         </tr>
         <tr>
-          <td>カテゴリ</td><td><%= post.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %></td>
+          <td>カテゴリ</td>
+          <td><%= post.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %></td>
         </tr>
         <tr>
-          <td>概要</td><td><%= post.text_area :outline, :size=>"70x5",:placeholder=>"概要を書いてください" %></td>
+          <td>概要</td>
+          <td><%= post.text_area :outline, :size=>"70x5",:placeholder=>"概要を書いてください" %></td>
         </tr>
         <tr>
-          <td>必要なもの<br>(255文字まで)</td><td><%= post.text_area:necessaries, :size=>"70x3" %></td>
+          <td>必要なもの<br>(255文字まで)</td>
+          <td><%= post.text_area:necessaries, :size=>"70x3" %></td>
         </tr>
         <tr>
-          <td>ポイント</td><td><%= post.text_area :point, :size=>"70x3" %></td>
+          <td>ポイント</td>
+          <td><%= post.text_area :point, :size=>"70x3" %></td>
         </tr>
         <tr>
           <td>　</td>
@@ -36,24 +42,24 @@
           </div>
         <% end %>
       </div>
-      <div id="form_append_button">追加する</div>
+      <div id="form_append_button">手順を追加する</div>
 
-        <%= post.label(:public, for: nil, class:'post-status__label') do %>
-      <%= post.radio_button :status, :public %>
-      <%= Post.statuses_i18n[:public] %>
-  <% end %>
-  <%= post.label(:private, for: nil, class:'post-status__label') do %>
-      <%= post.radio_button :status, :private %>
-      <%= Post.statuses_i18n[:private] %>
-  <% end %>
-
-
-
+      <div class="offset-3 pt-2 pb-5">
+      <%= post.label(:public, for: nil, class:'post-status__label') do %>
+        <%= post.radio_button :status, :public %>
+        <%= Post.statuses_i18n[:public] %>
+      <% end %>
+      <span class="pl-5">
+      <%= post.label(:private, for: nil, class:'post-status__label') do %>
+        <%= post.radio_button :status, :private %>
+        <%= Post.statuses_i18n[:private] %>
+      <% end %> <br>
+      </span> <br>
 
       <%= post.submit "内容を保存する", class:"btn btn-success btn-lg" %>
-
-
       <% end %>
+
+      </div>
 
     </div>
   </div>

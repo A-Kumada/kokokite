@@ -1,31 +1,33 @@
 <%= render 'public/posts/list', categories: @categories, tag_lists: @tag_lists,  tags: @tags%>
 
-    <div class="col-md-8">
+    <div class="col-md-9 offset-1 ">
 
       <% @posts.each do |post| %>
-      <div class="d-flex border-bottom offset-1 pl-3">
+      <div class="d-flex border pl-3 pr-4" >
         <div class="mt-3 mb-3">
         <table>
           <tr>
             <td>
               <%#= image_tag post.get_image(100,100) %>
+              <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
               <% if post.image.attached? %>
-                <%= image_tag post.image, size: "100x100" %>
+                <%= image_tag post.image, size: "150x150" %>
               <% else %>
-                <%= image_tag 'no_image', size: "100x100" %>
+                <%= image_tag 'no_image', size: "150x150" %>
               <%end %>
+              <% end %>
             </td>
             <td class="pl-4">
-              <%= link_to post_path(post),class: "text-primary font-weight-bold font-size" do %>
-                <%= post.title %><br>
+              <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
+                <span class="post-title"><%= post.title %><br></span>
               <% end %>
 
               <%= post.outline.truncate(60) %><br>
-              <%= link_to "♡#{post.favorites.count}", post_path(post.id),class: "text-danger pr-3" %><%= post.status_i18n %>
+              <%= link_to "♡#{post.favorites.count}", post_path(post.id),class: "text-danger pr-3" %>
             </td>
         </table>
         </div>
-      </div>
+      </div><br>
       <% end %>
 
     </div>

@@ -1,12 +1,13 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-sm-12 pb-5">
-      <h4 class="pb-4"><%=@user.nickname %>さんの会員情報</h4>
+    <div class="col-sm-10 pb-5">
+      <h4 class="pb-4 offset-2"><%=@user.nickname %>さんの会員情報</h4>
 
+      <div class="offset-4">
       <%= form_with model: @user, url: user_path(@user), method: :patch do |f| %>
       <table>
-        <tr><td width="200" class="pb-2"><%= f.label :"会員ID" %></td><td><%= @user.id %></td></tr>
+        <tr><td width="200" class="pb-2"><%= f.label :"会員ID" %></td><td class="pb-2"><%= @user.id %></td></tr>
         <tr><td class="pb-2"><%= f.label :"ニックネーム" %></td><td class="pb-2"><%= f.text_field :nickname %></td></tr>
         <tr><td class="pb-2"><%= f.label :"氏名ガナ" %></td><td class="pb-2"><%= f.text_field :name_kana %></td></tr>
         <tr><td class="pb-2"><%= f.label :"エリア" %></td><td class="pb-2"><%= f.select :area, User.areas, {}, {class: 'area'}%></td></tr>
@@ -14,6 +15,7 @@
 
         <tr class="pt-4"><td>　</td><td class="pt-4"><%= f.submit "変更を保存" ,class:"btn btn-success btn-lg" %></td></tr>
       </table>
+      </div>
     </div>
 
   <% end %>

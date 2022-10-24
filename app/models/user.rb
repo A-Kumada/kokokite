@@ -10,6 +10,12 @@ class User < ApplicationRecord
   
   validates :nickname, :name_kana,
     length: { maximum: 255 }
+    
+  def self.guest
+    find_or_create_by(email: 'guest@example.com', nickname:"クマ", name_kana:"クマ", area:1, ) do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
 
   enum area: { "北海道": 0, "東北": 1, "関東": 2, "中部": 3, "近畿": 4, "中国": 5, "四国": 6, "九州": 7,"沖縄": 8 }
 

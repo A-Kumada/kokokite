@@ -8,13 +8,19 @@
       <td>
         <%= link_to category.category_name, posts_path(category_id: category.id), class: "text-secondary" %>
       </td><br>
-      <%# end %>
       <% end %>
       <br><br>
       <p>タグ検索</p>
-      <% tag_lists.each do |list| %>
-        <%= link_to list.tag_name, posts_path(tag_id: list.id), class: 'tag_list' %>
+      <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
+        <% Tag.all.each do |t| %>
+          <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+        <% end %>
+        <%= submit_tag '検索' %>
       <% end %>
+
+      <%# tag_lists.each do |list| %>
+        <%#= link_to list.tag_name, posts_path(tag_id: list.id), class: 'tag_list' %>
+      <%# end %>
 
     <%# tags.each do |tag| %>
      <%#= link_to "##{tag.tag_name}", posts_path(tag), class: 'smaller tag_list' %>

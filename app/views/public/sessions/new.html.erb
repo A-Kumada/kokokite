@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-10 offset-1">
       <h4>ログイン</h4>
-      <div class="offset-2">
+      <div class="offset-2 pt-3"><br>
         <h6 class="pb-3">会員登録がお済みの方</h6>
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -29,7 +29,7 @@
             </tr>
             <tr>
               <td></td>
-              <td><%= f.submit "Log in",class:"btn btn-success w-100" %></td>
+              <td><%= f.submit "ログイン",class:"btn btn-success w-100" %></td>
             </tr>
           </tbody>
         </table>

@@ -11,11 +11,11 @@ Rails.application.routes.draw do
 
     root to: "public/homes#top"
     get "/about" => "homes#about", as: "about"
-    get '/users/mypage' => 'public/users#show', as: 'mypage'
+    get '/users/mypage' => 'public/users#mypage', as: 'mypage'
     get '/users/bookmark' => 'public/homes#bookmark', as: 'bookmark'
 
  scope module: :public do
-    resources :users, only: [:edit, :update, :index]
+    resources :users, only: [:edit, :update, :index, :show]
     resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
         resources :comments, only: [:create, :destroy]
         resource :favorites, only: [:create, :destroy]

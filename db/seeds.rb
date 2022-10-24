@@ -11,3 +11,15 @@ Admin.create!(
     admin:true
 )
 
+Tag.create([
+  { name: '簡単' },
+  { name: '便利' },
+  { name: '自炊' },
+  { name: 'キッチン' },
+  { name: '100均グッズ' },
+  { name: '時短' },
+  { name: 'リビング' },
+  { name: 'お風呂' },
+  { name: '整理整頓' },
+  { name: '節約' }
+])

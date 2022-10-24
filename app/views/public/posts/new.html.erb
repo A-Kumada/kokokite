@@ -1,67 +1,79 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 offset-md-3">
+    <div class="col-md-12 offset-md-2">
 
       <%= form_with model: @post, url: posts_path  do |f| %>
       <table>
         <tr>
-          <td>写真(任意)</td><td><%= f.file_field :image, accept: "image/*" %></td>
+          <td>写真(任意)</td>
+          <td><%= f.file_field :image, accept: "image/*" %></td>
         </tr>
          <tr>
-          <td>タイトル</td><td><%= f.text_field :title,:size=>"70" %>255文字まで</td>
+          <td class="pt-2">タイトル</td>
+          <td class="pt-2"><%= f.text_field :title,:size=>"70" %>255文字まで</td>
         </tr>
         <tr>
-          <td>カテゴリ</td><td><%= f.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %></td>
-        </tr>
-        <tr>
-          <td>タグ</td>
-          <td><%= f.text_area :tag_name, placeholder: "上記カテゴリに関するタグをスペース区切りで5つまで入力(例 時短 作り置き )" %>
-            <%#= f.fields_for :tags do | b | %>
-            <%#= b.text_area :tag_name, placeholder: "上記カテゴリに関するタグをスペース区切りで5つまで入力(例 時短 作り置き )",:size=>"50x2", class: 'uk-input uk-form-small' %>
-            <%# end %>
+          <td class="pt-2">カテゴリ</td>
+          <td class="pt-2"><%#= f.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %>
+            <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
           </td>
+        </tr>
+        <tr>
+          <td class="pt-2">タグ</td>
+          <td class="pt-2"><%= f.text_area :tag_name, :size=>"50x3",placeholder: "上記カテゴリに関するタグをスペース区切りで5つまで入力(例 時短 作り置き )" %></td>
        </tr>
         <tr>
-          <td>概要</td><td><%= f.text_area :outline, :size=>"70x5",:placeholder=>"概要を書いてください" %></td>
+          <td class="pt-2">概要</td>
+          <td class="pt-2"><%= f.text_area :outline, :size=>"70x5",:placeholder=>"概要を書いてください" %></td>
         </tr>
         <tr>
-          <td>必要なもの</td><td><%= f.text_area :necessaries,:size=>"70x3" %></td>
+          <td class="pt-2">必要なもの</td>
+          <td class="pt-2"><%= f.text_area :necessaries,:size=>"70x3",:placeholder=>"ex.牛肉 150g、じゃがいも 2個" %></td>
         </tr>
         <tr>
-          <td>ポイント</td><td><%= f.text_area :point,:size=>"70x4" %></td>
+          <td class="pt-2">ポイント</td>
+          <td class="pt-2"><%= f.text_area :point,:size=>"70x3" %></td>
         </tr>
         <tr>
-
           <div id="post_procedures_forms">
           <%= f.fields_for :procedures do | b | %>
             <div class="post_procedures_forms">
-              <td><span class='label'>手順</span></td><td><span class='form'><%= b.text_area :content,:size=>"70x2" %></span></td>
+              <td class="pt-2"><span class='label'>手順</span></td>
+              <td class="pt-2"><span class='form'><%= b.text_area :content,:size=>"70x2" %></span></td>
             </div>
           <% end %>
           </div>
         </tr>
         <tr>
-          <td><div id="form_append_button">追加する</div></td>
+          <td><div id="form_append_button">手順を追加する</div></td>
          </tr>
       </table>
 
-
-  <%= f.label(:public, for: nil, class:'post-status__label') do %>
-      <%= f.radio_button :status, :public %>
-      <%= Post.statuses_i18n[:public] %>
-  <% end %>
-  <%= f.label(:private, for: nil, class:'post-status__label') do %>
-      <%= f.radio_button :status, :private %>
-      <%= Post.statuses_i18n[:private] %>
-  <% end %>
-
-
-
-          <%= f.submit "新規登録", class:"btn btn-success btn-lg" %>
-
-          <% end %>
-
     </div>
+  </div>
+
+  <div class="row">
+    <div class="mx-auto pb-5">
+      <%= f.label(:public, for: nil, class:'post-status__label') do %>
+        <%= f.radio_button :status, :public %>
+        <%= Post.statuses_i18n[:public] %>
+      <% end %>
+      <%= f.label(:private, for: nil, class:'post-status__label') do %>
+        <%= f.radio_button :status, :private %>
+        <%= Post.statuses_i18n[:private] %>
+      <% end %>
+　　　<br><br>
+
+      <%= f.submit "新規登録", class:"btn btn-success btn-lg" %>
+      <% end %>
+　　</div>
   </div>
 </div>
 

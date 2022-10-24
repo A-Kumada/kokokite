@@ -2,13 +2,18 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   #before_action :set_current_user
 
-  def show
+  def mypage
     @user = current_user
     @posts = current_user.posts.all
   end
 
+  def show
+    @user = User.find(params[:id])
+    @posts = @user.posts.all
+  end
+
   def index
-    @posts = current_user.posts.all
+    @posts = @user.posts.all
   end
 
 

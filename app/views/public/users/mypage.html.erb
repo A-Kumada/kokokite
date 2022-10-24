@@ -23,9 +23,7 @@
                   <span class="post-title"><%= post.title %>
                 <% end %> <br>
                 <%= post.outline.truncate(30) %> <br><br>
-                <span class="pr-3">
-                  <%= post.created_at.strftime('%Y/%m/%d') %>
-                </span>
+                <span class="pr-3"><%= post.created_at.strftime('%Y/%m/%d') %></span>
                 <%= link_to "♡#{post.favorites.count}", post_path(post.id),class: "text-danger pr-3" %>
                 <i class="fas fa-comment-dots"></i><%= link_to post.comments.count, post_path(post.id),class: "text-dark pr-3" %>
               </td>
