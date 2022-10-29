@@ -4,9 +4,36 @@ ja:
       status:
         public: "公開"
         private: "非公開"
-  # ja: # 日本語の設定を行う
-  #   enums: # enumの設定を行う
-  #     order: # モデル名（Orderモデルに対して）
-  #       status: # カラム名（payment_methodカラムに対して）
-  #         public: "クレジットカード"
-  #         private: "銀行振込"
+  activerecord:
+    attributes:
+      post:
+        title: タイトル
+        category_id: カテゴリ
+        category: カテゴリ
+        outline: 概要
+        necessaries: 必要なもの
+        point: ポイント
+      procedures:
+        content: 手順
+    errors:
+      models:
+        post:
+          attributes:
+            title:
+              blank: "を入力してください"
+            category_id:
+              blank: "が選択されていません"
+            category:
+              required: "を選んでください"
+            outline:
+              blank: "を入力してください"
+            necessaries:
+              blank: "を入力してください"
+              too_long: "の文字数が255文字を超えています"
+            point:
+              blank: "を入力してください"
+        procedure:
+          attributes:
+            content:
+              blank: "は1つ以上入力してください"
+

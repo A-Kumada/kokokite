@@ -1,6 +1,7 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   #before_action :set_current_user
+  before_action :guest_check, only: %i[edit withdraw]#%i[update destroy]
 
   def mypage
     @user = current_user
@@ -16,7 +17,6 @@ class Public::UsersController < ApplicationController
     @posts = @user.posts.all
   end
 
-
   def edit
     @user = User.find(params[:id])
   end
@@ -26,8 +26,15 @@ class Public::UsersController < ApplicationController
     if @user.update(user_params)
        redirect_to mypage_path
     else
+    @user.update(is_active: "false")
       @users = User.all
       render:edit
+    end
+  end
+
+  def guest_check
+    if current_user == User.find(2)
+      redirect_to root_path,notice: "ゲストユーザーの更新・削除はできません。"
     end
   end
 

@@ -7,13 +7,16 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  
+
   validates :nickname, :name_kana,
     length: { maximum: 255 }
-    
+
   def self.guest
-    find_or_create_by(email: 'guest@example.com', nickname:"クマ", name_kana:"クマ", area:1, ) do |user|
+    find_or_create_by(email: 'guest@example.com' ) do |user|
       user.password = SecureRandom.urlsafe_base64
+      user.nickname = "クマ"
+      user.name_kana = "クマ"
+      user.area = 1
     end
   end
 

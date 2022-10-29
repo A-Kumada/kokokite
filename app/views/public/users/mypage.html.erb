@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-md-8 pr-5">
+    <div class="col-md-8 pr-5 pt-3">
       <span class="headline"><%= @user.nickname %>さんの投稿一覧</span> <br><br>
       <div class="pl-5">
       <% @user.posts.each do |post| %>
@@ -12,9 +12,9 @@
               <td>
                 <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
                   <% if post.image.attached? %>
-                    <%= image_tag post.image, size: "150x150" %>
+                    <%= image_tag post.image, size: "140x140" %>
                   <% else %>
-                    <%= image_tag 'no_image', size: "150x150" %>
+                    <%= image_tag 'no_image', size: "140x140" %>
                   <% end %>
                 <% end %>
               </td>
@@ -37,7 +37,9 @@
 
     <div class="col-md-4 pl-5">
       <h5 class="pb-1 font-weight-bold">
-        登録情報　<%= link_to "編集する", edit_user_path(current_user),class:"btn btn-success" %>
+        登録情報
+        <%= link_to "編集する", edit_user_path(current_user),class:"btn btn-success" %>
+        <%= link_to "退会する", unsubscribe_path(current_user),class:"btn btn-danger" %>
       </h5>
 
       <table class="table table-bordered">

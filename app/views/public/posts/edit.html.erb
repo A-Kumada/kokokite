@@ -1,7 +1,19 @@
+<% if @post.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      入力エラーが <%= pluralize(@post.errors.count, "件ありました") %>.
+    </div>
+    <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+      <li class="nav-link"><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-md-12 offset-md-2">
-
 
     <%= form_with model: @post, url: post_path(@post), method: :patch do |post| %>
       <table>
@@ -30,19 +42,32 @@
           <td><%= post.text_area :point, :size=>"70x3" %></td>
         </tr>
         <tr>
-          <td>　</td>
-          <td><%= post.text_area :tag_name %></td>
+          <td>タグ</td>
+          <td>
+            <%= post.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check pr-3'>
+                <%= tag.label class: 'form-check-label' do %>
+                  <%= tag.check_box class: 'form-check-input' %>
+                  <%= tag.text %>
+                <% end %>
+            </div>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <div id="post_procedures_forms">
+            <%= post.fields_for :procedures do | b | %>
+            <div class="post_procedures_forms">
+              <td><span class='label'>手順</span></td>
+              <td><span class='form'><%= b.text_area :content,:size=>"70x2" %></span></td>
+            </div>
+            <% end %>
+          </div>
+        </tr>
+        <tr>
+          <td><div id="form_append_button">＋手順を追加する</div></td>
         </tr>
       </table>
-
-      <div id="post_procedures_forms">
-        <%= post.fields_for :procedures do | b | %>
-          <div class="post_procedures_forms">
-            <span class='label'>手順</span><span class='form'><%= b.text_area :content,:size=>"70x2" %></span>
-          </div>
-        <% end %>
-      </div>
-      <div id="form_append_button">手順を追加する</div>
 
       <div class="offset-3 pt-2 pb-5">
       <%= post.label(:public, for: nil, class:'post-status__label') do %>

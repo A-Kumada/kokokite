@@ -17,7 +17,7 @@
   height: 500px;
   background-size: cover;
   background-position: center;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .main-visual-content img {
@@ -48,4 +48,6 @@ footer {
   background-color: #848282;
   margin-top: auto;
   padding: 30px 0;
+  position: absolute;
+  color: white
 }

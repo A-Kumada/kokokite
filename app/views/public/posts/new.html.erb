@@ -1,52 +1,71 @@
+<%# if flash[:notice] %>
+ <%#div class="alert alert-success" role="alert">
+ <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
+<%# end %>
+<% if @post.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      入力エラーが <%= pluralize(@post.errors.count, "件ありました") %>.
+    </div>
+    <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+      <li class="nav-link"><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-12 offset-md-2">
+    <div class="col-md-10 offset-md-2">
 
       <%= form_with model: @post, url: posts_path  do |f| %>
       <table>
         <tr>
-          <td>写真(任意)</td>
+          <td width="130" class="text-center">写真(任意)</td>
           <td><%= f.file_field :image, accept: "image/*" %></td>
         </tr>
          <tr>
-          <td class="pt-2">タイトル</td>
-          <td class="pt-2"><%= f.text_field :title,:size=>"70" %>255文字まで</td>
+          <td class="pt-2 text-center ">タイトル</td>
+          <td class="pt-2"><%= f.text_field :title,:size=>"60" %></td>
         </tr>
         <tr>
-          <td class="pt-2">カテゴリ</td>
-          <td class="pt-2"><%#= f.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %>
-            <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-            <div class='form-check'>
-                <%= tag.label class: 'form-check-label' do %>
-                    <%= tag.check_box class: 'form-check-input' %>
-                    <%= tag.text %>
-                <% end %>
-            </div>
-        <% end %>
+          <td class="pt-2 text-center">カテゴリ</td>
+          <td class="pt-2">
+            <%= f.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %>
           </td>
         </tr>
         <tr>
-          <td class="pt-2">タグ</td>
-          <td class="pt-2"><%= f.text_area :tag_name, :size=>"50x3",placeholder: "上記カテゴリに関するタグをスペース区切りで5つまで入力(例 時短 作り置き )" %></td>
-       </tr>
-        <tr>
-          <td class="pt-2">概要</td>
-          <td class="pt-2"><%= f.text_area :outline, :size=>"70x5",:placeholder=>"概要を書いてください" %></td>
+          <td class="pt-2 text-center">概要</td>
+          <td class="pt-2"><%= f.text_area :outline, :size=>"60x5",:placeholder=>"概要を書いてください" %></td>
         </tr>
         <tr>
-          <td class="pt-2">必要なもの</td>
-          <td class="pt-2"><%= f.text_area :necessaries,:size=>"70x3",:placeholder=>"ex.牛肉 150g、じゃがいも 2個" %></td>
+          <td class="pt-2 text-center">必要なもの</td>
+          <td class="pt-2"><%= f.text_area :necessaries,:size=>"60x3",:placeholder=>"ex.牛肉 150g、じゃがいも 2個" %>255文字まで</td>
         </tr>
         <tr>
-          <td class="pt-2">ポイント</td>
-          <td class="pt-2"><%= f.text_area :point,:size=>"70x3" %></td>
+          <td class="pt-2 text-center">タグ</td>
+          <td class="pt-2">
+            <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check pr-3'>
+                <%= tag.label class: 'form-check-label' do %>
+                  <%= tag.check_box class: 'form-check-input' %>
+                  <%= tag.text %>
+                <% end %>
+            </div>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="pt-2 text-center">ポイント</td>
+          <td class="pt-2"><%= f.text_area :point,:size=>"60x3" %></td>
         </tr>
         <tr>
           <div id="post_procedures_forms">
           <%= f.fields_for :procedures do | b | %>
             <div class="post_procedures_forms">
-              <td class="pt-2"><span class='label'>手順</span></td>
-              <td class="pt-2"><span class='form'><%= b.text_area :content,:size=>"70x2" %></span></td>
+              <td class="pt-2 text-center"><span class='label'>手順</span></td>
+              <td class="pt-2"><span class='form'><%= b.text_area :content,:size=>"60x2",:placeholder=>"1.〜" %></span></td>
             </div>
           <% end %>
           </div>

@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :guest_check, only: %i[new]
 
   def new
     @post = current_user.posts.build
@@ -8,12 +9,8 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    # byebug
-    @tag_list = params[:post][:tag_name].split(/(\s|　)+/).reject(&:blank?)
-    @post.image.attach(params[:post][:image])
-    @post.user_id = current_user.id
+    # @tag_list = params[:post][:tag_name].split(/(\s|　)+/).reject(&:blank?)
     if @post.save
-      @post.save_posts(@tag_list)
       redirect_to post_path(@post)
     else
       render :new
@@ -21,8 +18,11 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    if params[:search].present?
-      @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
+    if params[:tag_ids]
+      @posts = []
+      params[:tag_ids].each do |key, value|
+        @posts += Tag.find_by(name: key).posts.where(status: "public") if value == "1"
+      end
     elsif params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
       @posts = @tag.posts.where(status: "public").order(created_at: :desc)
@@ -33,8 +33,7 @@ class Public::PostsController < ApplicationController
       @user = User.find(params[:user_id])
       @posts = @user.posts.where(status: "public").all.order(created_at: :desc)
     end
-      @tag_lists = Tag.all
-
+      #@tag_lists = Tag.all
     @tags = Tag.all
     @categories = Category.all
   end
@@ -50,9 +49,8 @@ class Public::PostsController < ApplicationController
       @comment = Comment.new
       @categories = Category.all
       @tags = Tag.all
-      @tag_lists = Tag.all
+      #@tag_lists = Tag.all
     end
-
     @user = @post.user
   end
 
@@ -67,7 +65,7 @@ class Public::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:success] = 'You have updated book successfully.'
+      flash[:success] = '更新しました'
       redirect_to post_path(@post.id)
     else
       @posts = Post.all
@@ -81,15 +79,15 @@ class Public::PostsController < ApplicationController
     redirect_to '/'
   end
 
+  def guest_check
+    if current_user == User.find(2)
+      redirect_to root_path,notice: "このページを見るには会員登録が必要です。"
+    end
+  end
+
   private
 
   def post_params
-    params.require(:post).permit(:user_id, :category_id, :title, :outline, :necessaries, :image, :point, :status, :image, tags_attributes:[:tag_name], procedures_attributes: [:content, :post_id,:id, :_destroy])
+    params.require(:post).permit(:category_id, :title, :outline, :necessaries, :image, :point, :status, tag_ids: [], procedures_attributes: [:content, :post_id, :id, :_destroy])
   end
-
-  def article_params
-    params.require(:article).permit(:body, tag_ids: [])
-  end
-
-
 end

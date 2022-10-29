@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
  devise_for :users,skip: [:passwords], controllers: {
  registrations: "public/registrations",
  sessions: 'public/sessions'
@@ -13,6 +12,8 @@ Rails.application.routes.draw do
     get "/about" => "homes#about", as: "about"
     get '/users/mypage' => 'public/users#mypage', as: 'mypage'
     get '/users/bookmark' => 'public/homes#bookmark', as: 'bookmark'
+    get "/users/unsubscribe" => "public/users#unsubscribe", as: "unsubscribe"
+    patch '/users/:id/withdraw' => 'public/users#withdraw', as: "withdraw"
 
  scope module: :public do
     resources :users, only: [:edit, :update, :index, :show]
@@ -30,6 +31,9 @@ Rails.application.routes.draw do
 namespace :admin do
     resources :categories, only:[:index,:create,:edit,:update,:show]
     resources :users, only:[:index, :edit, :update, :show]
+    resources :posts, only:[ :show]  do
+        resources :comments, only:[ :destroy]
+    end
 end
 
 end

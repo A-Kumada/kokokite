@@ -1,30 +1,31 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10 offset-md-1">
+    <div class="col-md-10 offset-md-1 pt-5">
       <table class="table table-hover table-inverse">
-          <tr>
-            <th>会員ID</th>
-            <th>ニックネーム</th>
-            <th>氏名(カナ)</th>
-            <th>ステータス</th>
-          </tr>
-          <% @users.each do |user| %>
-          <div class="rounded pb-4 pr-4">
-            <%#= image_tag post.get_image(180,180) %>
-          <tr>
-            <td><%= user.id %></td>
-            <td><%= link_to admin_user_path(user) do %>
-                  <%= user.nickname %>
-                <% end %></td>
-            <td><%= user.name_kana %></td>
-            <td><% if user.is_active == true %>
-                  <%= "有効" %>
-                <% else %>
-                  <%= "退会" %>
-                <% end %> </td><br>
-                <% end %>
-          </div>
-        </table>
-      </div>
+        <tr>
+          <th>会員ID</th>
+          <th>ニックネーム</th>
+          <th>氏名(カナ)</th>
+          <th>ステータス</th>
+        </tr>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td>
+            <%= link_to admin_user_path(user) do %>
+              <%= user.nickname %>
+            <% end %>
+          </td>
+          <td><%= user.name_kana %></td>
+          <td>
+            <% if user.is_active == true %>
+              <%= "有効" %>
+            <% else %>
+              <%= "退会" %>
+            <% end %>
+            </td>
+        <% end %>
+      </table>
+    </div>
   </div>
 </div>

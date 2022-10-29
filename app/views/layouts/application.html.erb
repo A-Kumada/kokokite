@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+
   </head>
 
   <body>
@@ -42,20 +43,21 @@
           </li>
           <li>
             <%= link_to new_post_path,class:"nav-link text-dark ml-3 " do %>
-            <i class="fas fa-pen"></i>投稿
-            <% end %>
+            <i class="fas fa-pen"></i>
+              投稿
+              <% end %>
           </li>
           <li>
             <%= link_to destroy_user_session_path, method: :delete, class:"nav-link text-dark ml-3" do %>
             <i class="fas fa-sign-out-alt"></i>
-            ログアウト
-            <% end %>
+              ログアウト
+              <% end %>
           <li>
 
         <% elsif admin_signed_in? %>
           <li>
-          <%#= link_to admin_posts_path,class:"nav-link border text-dark" do %>投稿一覧
-          <%# end %>
+            <%#= link_to admin_posts_path,class:"nav-link border text-dark" do %>投稿一覧
+            <%# end %>
           </li>
           <li>
             <%= link_to admin_users_path,class:"nav-link border text-dark ml-5" do %>会員一覧
@@ -101,7 +103,7 @@
   </body>
 
   <footer>
-    <p class="text-light">CopyRight</p>
-  </foote>
+    <div class"copyrights">© 2022 Ayano Kumada</span>
+  </footer>
 
 </html>
