@@ -21,7 +21,6 @@
               <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
                 <span class="post-title"><%= post.title %><br></span>
               <% end %>
-
               <%= post.outline.truncate(60) %><br>
               <%= link_to "♡#{post.favorites.count}", post_path(post.id),class: "text-danger pr-3" %>
             </td>

@@ -1,14 +1,14 @@
-<%= render 'public/posts/list', categories: @categories, tag_lists: @tag_lists,  tags: @tags%>
+<%= render 'public/posts/list', categories: @categories,  tags: @tags%>
 
-    <div class="col-md-8 offset-1">
+    <div class="col-md-9 offset-1">
 
     <% if flash[:notice] %>
       <div class="alert alert-success" role="alert">
       <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
     <% end %>
 
-    <div class="border">
-      <div class="pt-4 pl-3 pr-3">
+    <div class="border pb-3">
+      <div class="p-5">
         <% if @post.favorited_by?(current_user) %>
           <%= link_to post_favorites_path(@post),class:"btn btn-light", method: :delete do %>
             お気に入り解除
@@ -32,9 +32,9 @@
         <span style="font-size:25px">
           <%= @post.title %>
         </span>
-        <%= link_to posts_path(user_id: @post.user), class: "text-secondary" do %><br>
-          ️<%= @post.user.nickname %>さんの投稿
-        <% end%><br>
+        <%= link_to user_path(@user), class: "text-secondary" do %><br>
+          <i class="fas fa-pen"></i>️<%= @post.user.nickname %>
+        <% end%><br><br>
 
         <% if @post.image.attached? %>
           <%= image_tag @post.image, size: "400x300" %>
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-      <div class="offset-1">
+      <div class="offset-1 pt-3">
         <div class="pt-4 pb-5">
           【コメントをする】　コメント件数：<%= @post.comments.count %>
           <div class="pt-2">

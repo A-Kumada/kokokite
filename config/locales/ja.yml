@@ -15,6 +15,12 @@ ja:
         point: ポイント
       procedures:
         content: 手順
+      user:
+        nickname: ニックネーム
+        name_kana: 氏名(カナ)
+        password: パスワード
+        password_confirmation: パスワード(確認用)
+        email: メールアドレス
     errors:
       models:
         post:

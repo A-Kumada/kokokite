@@ -6,8 +6,13 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <div class="text-center pt-5 pb-0">
+        一人暮らしを始めたあなたへ...<br>
+        ここで一人暮らしの生活の知恵や裏技を見つけてみませんか？<br><br>
+        一人暮らしのベテランさんは、ぜひおすすめの生活の知恵を教えてください！
+      </div>
       <span class="main-visual">
-        <%= image_tag 'MIYA1105689.jpg' %><div class="main-visual-content"></div>
+        <%= image_tag 'main.jpg' %>
       </span>
     </div>
   </div>
@@ -17,9 +22,9 @@
       <h4 class="pt-5 pb-4">カテゴリ一覧</h4>
         <div class="d-flex">
         <% @categories.each do |category| %>
-        <div class="pr-3">
-          <%= link_to category.category_name, posts_path(category_id: category.id), class: "btn-lg btn-info p-3" %>
-        </div>
+          <div class="pr-3">
+            <%= link_to category.category_name, posts_path(category_id: category.id), class: "btn-lg btn-info p-3" %>
+          </div>
         <% end %>
         </div>
 
@@ -27,58 +32,56 @@
       <h4 class="pt-5 pb-4">新着　NEW！</h4>
         <div class="d-flex pr-3">
         <% @posts.each do |post| %>
-        <div class="rounded ml-4 mr-4">
-          <ul class="navbar-nav ml-auto">
-          <li>
-            <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
-              <% if post.image.attached? %>
-                <%= image_tag post.image, size: "150x150" %>
-              <% else %>
-                <%= image_tag 'no_image', size: "150x150" %>
-              <% end %>
-            <% end %><br>
+          <div class="rounded ml-4 mr-4">
+            <ul class="navbar-nav ml-auto">
+            <li>
+              <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image, size: "150x150" %>
+                <% else %>
+                  <%= image_tag 'no_image', size: "150x150" %>
+                <% end %>
+              <% end %><br>
 
-            <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
-              <%= post.title %>
-            <% end %>
-            <span class="rank-nickname-font pl-1">by<%= post.user.nickname %></span>
-          </ll>
-        </div>
+              <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
+                <%= post.title.truncate(25) %>
+              <% end %>
+              <span class="rank-nickname-font pl-1">by<%= post.user.nickname %></span>
+            </ll>
+          </div>
         <% end %>
         </div>
     </div>
 
-
       <h4 class="pt-5 pb-4">
         <i class="fas fa-crown"></i>
         アクセスランキング
-         <i class="fas fa-crown"></i>
+        <i class="fas fa-crown"></i>
       </h4>
-      <div class="d-flex pr-3 pb-4">
+      <div class="d-flex pr-3 pb-5">
         <% @post_pvs.each_with_index do |post, i| %>
         <% if i >= 5 %>
           <% break %>
         <% end %>
         <div class="rounded ml-4 mr-4">
           <ul class="navbar-nav ml-auto">
-          <li>
-            <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
-          <% if post.image.attached? %>
-            <%= image_tag post.image, size: "150x150" %>
-          <% else %>
-            <%= image_tag 'no_image', size: "150x150" %>
-          <% end %>
-          <% end %><br>
+            <li>
+              <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image, size: "150x150" %>
+                <% else %>
+                  <%= image_tag 'no_image', size: "150x150" %>
+                <% end %>
+              <% end %><br>
 
           <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
-            <%= post.title %>
+            <%= post.title.truncate(25) %>
           <% end %>
           <span class="rank-nickname-font">by<%= post.user.nickname %></span>
-          </ll>
+          </li>
         </div>
         <% end %>
       </div>
     </div>
-
   </div>
 </div>

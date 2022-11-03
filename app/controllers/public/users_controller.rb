@@ -19,11 +19,16 @@ class Public::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    unless
+      @user == current_user || admin_signed_in?
+      redirect_to mypage_path
+    end
   end
 
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+       flash[:success] = '変更しました'
        redirect_to mypage_path
     else
     @user.update(is_active: "false")

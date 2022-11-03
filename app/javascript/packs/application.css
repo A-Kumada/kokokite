@@ -1,3 +1,13 @@
+.rogo {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.logo-icon img {
+  width: 55px;
+  height: 55px;
+
+}
 
 .field_with_errors {
   display: inline;
@@ -7,6 +17,12 @@
   border-color: red;
 }
 
+.post_procedures_forms input {
+  width: 530px;
+  height: 40px;
+  margin-top: 5px;
+}
+
 .rank-nickname-font {
   font-size: 14px;
   color: gray;
@@ -14,9 +30,9 @@
 
 .main-visual img {
   width: 100%;
-  height: 500px;
+  height: 400px;
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
   opacity: 0.3;
 }
 

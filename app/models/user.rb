@@ -10,6 +10,10 @@ class User < ApplicationRecord
 
   validates :nickname, :name_kana,
     length: { maximum: 255 }
+  validates :nickname,presence: true
+  validates :name_kana,presence: true
+  validates :email,presence: true
+  validates :area,presence: true
 
   def self.guest
     find_or_create_by(email: 'guest@example.com' ) do |user|

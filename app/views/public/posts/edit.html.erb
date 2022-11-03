@@ -13,17 +13,17 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 offset-md-2">
+    <div class="col-md-10 offset-md-2 pt-5">
 
     <%= form_with model: @post, url: post_path(@post), method: :patch do |post| %>
       <table>
         <tr>
-          <td>写真(任意)</td>
+          <td width="130" class="text-center">写真(任意)</td>
           <td><%= post.file_field :image, accept: "image/*" %></td>
         </tr>
          <tr>
-          <td>タイトル</td>
-          <td><%= post.text_field :title ,:size=>"70" %></td>
+          <td class="pt-2 text-center ">タイトル</td>
+          <td class="pt-2"><%= post.text_field :title ,:size=>"70" %></td>
         </tr>
         <tr>
           <td>カテゴリ</td>
@@ -42,8 +42,8 @@
           <td><%= post.text_area :point, :size=>"70x3" %></td>
         </tr>
         <tr>
-          <td>タグ</td>
-          <td>
+          <td class="pb-3">タグ</td>
+          <td class="pb-3">
             <%= post.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
             <div class='form-check pr-3'>
                 <%= tag.label class: 'form-check-label' do %>
@@ -54,22 +54,22 @@
             <% end %>
           </td>
         </tr>
-        <tr>
-          <div id="post_procedures_forms">
-            <%= post.fields_for :procedures do | b | %>
-            <div class="post_procedures_forms">
-              <td><span class='label'>手順</span></td>
-              <td><span class='form'><%= b.text_area :content,:size=>"70x2" %></span></td>
-            </div>
-            <% end %>
-          </div>
-        </tr>
-        <tr>
-          <td><div id="form_append_button">＋手順を追加する</div></td>
-        </tr>
       </table>
 
-      <div class="offset-3 pt-2 pb-5">
+      <div id="post_procedures_forms">
+        <%= post.fields_for :procedures do | b | %>
+        <div class="post_procedures_forms">
+          <span class='label'>手順</span>
+          <span class='form'><%= b.text_area :content,:size=>"70x2" %></span>
+        </div>
+        <% end %>
+      </div>
+      <div id="form_append_button">＋手順を追加する</div>
+    </div>
+  </div> <br>
+
+  <div class="row">
+    <div class="mx-auto pb-5">
       <%= post.label(:public, for: nil, class:'post-status__label') do %>
         <%= post.radio_button :status, :public %>
         <%= Post.statuses_i18n[:public] %>
@@ -79,13 +79,11 @@
         <%= post.radio_button :status, :private %>
         <%= Post.statuses_i18n[:private] %>
       <% end %> <br>
-      </span> <br>
-
+      </span>
       <%= post.submit "内容を保存する", class:"btn btn-success btn-lg" %>
       <% end %>
 
       </div>
-
     </div>
   </div>
 </div>

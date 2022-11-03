@@ -1,7 +1,3 @@
-<%# if flash[:notice] %>
- <%#div class="alert alert-success" role="alert">
- <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
-<%# end %>
 <% if @post.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
@@ -19,34 +15,36 @@
   <div class="row">
     <div class="col-md-10 offset-md-2">
 
-      <%= form_with model: @post, url: posts_path  do |f| %>
+    <%= form_with model: @post, url: admin_post_path(@post), method: :patch do |post| %>
       <table>
         <tr>
-          <td width="130" class="text-center">写真(任意)</td>
-          <td><%= f.file_field :image, accept: "image/*" %></td>
+          <td class="pt-2">写真(任意)</td>
+          <td class="pt-2"><%= post.file_field :image, accept: "image/*" %></td>
         </tr>
          <tr>
-          <td class="pt-2 text-center ">タイトル</td>
-          <td class="pt-2"><%= f.text_field :title,:size=>"60" %></td>
+          <td class="pt-2">タイトル</td>
+          <td class="pt-2"><%= post.text_field :title ,:size=>"70" %></td>
         </tr>
         <tr>
-          <td class="pt-2 text-center">カテゴリ</td>
-          <td class="pt-2">
-            <%= f.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %>
-          </td>
+          <td class="pt-2">カテゴリ</td>
+          <td class="pt-2"><%= post.collection_select :category_id, Category.all, :id, :category_name, include_blank: '--選択してください--' %></td>
         </tr>
         <tr>
-          <td class="pt-2 text-center">概要</td>
-          <td class="pt-2"><%= f.text_area :outline, :size=>"60x5",:placeholder=>"概要を書いてください" %></td>
+          <td class="pt-2">概要</td>
+          <td class="pt-2"><%= post.text_area :outline, :size=>"70x5",:placeholder=>"概要を書いてください" %></td>
         </tr>
         <tr>
-          <td class="pt-2 text-center">必要なもの</td>
-          <td class="pt-2"><%= f.text_area :necessaries,:size=>"60x3",:placeholder=>"ex.牛肉 150g、じゃがいも 2個" %>255文字まで</td>
+          <td class="pt-2">必要なもの<br>(255文字まで)</td>
+          <td class="pt-2"><%= post.text_area:necessaries, :size=>"70x3" %></td>
         </tr>
         <tr>
-          <td class="pt-2 text-center">タグ</td>
-          <td class="pt-2">
-            <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+          <td class="pt-2">ポイント</td>
+          <td class="pt-2"><%= post.text_area :point, :size=>"70x3" %></td>
+        </tr>
+        <tr>
+          <td class="pt-2">タグ</td>
+          <td>
+            <%= post.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
             <div class='form-check pr-3'>
                 <%= tag.label class: 'form-check-label' do %>
                   <%= tag.check_box class: 'form-check-input' %>
@@ -56,17 +54,13 @@
             <% end %>
           </td>
         </tr>
-        <tr>
-          <td class="pt-2 pb-2 text-center">ポイント</td>
-          <td class="pt-2 pb-2"><%= f.text_area :point,:size=>"60x3" %></td>
-        </tr>
       </table>
 
       <div id="post_procedures_forms">
-        <%= f.fields_for :procedures do | b | %>
+        <%= post.fields_for :procedures do | b | %>
         <div class="post_procedures_forms">
           <span class='label'>手順</span>
-          <span class='form'><%= b.text_area :content,:size=>"60x2",:placeholder=>"1.〜" %></span>
+          <span class='form'><%= b.text_area :content,:size=>"70x2" %></span>
         </div>
         <% end %>
       </div>
@@ -76,19 +70,23 @@
 
   <div class="row">
     <div class="mx-auto pb-5">
-      <%= f.label(:public, for: nil, class:'post-status__label') do %>
-        <%= f.radio_button :status, :public %>
+      <%= post.label(:public, for: nil, class:'post-status__label') do %>
+        <%= post.radio_button :status, :public %>
         <%= Post.statuses_i18n[:public] %>
       <% end %>
-      <%= f.label(:private, for: nil, class:'post-status__label') do %>
-        <%= f.radio_button :status, :private %>
+      <span class="pl-5">
+      <%= post.label(:private, for: nil, class:'post-status__label') do %>
+        <%= post.radio_button :status, :private %>
         <%= Post.statuses_i18n[:private] %>
-      <% end %>
-　　　<br><br>
+      <% end %> <br>
+      </span> <br>
 
-      <%= f.submit "新規登録", class:"btn btn-success btn-lg" %>
+      <%= post.submit "内容を保存する", class:"btn btn-success btn-lg" %>
       <% end %>
-　　</div>
+
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -106,12 +104,15 @@
 </style>
 
 <script>
-const button = document.getElementById('form_append_button')
+  const button = document.getElementById('form_append_button')
 
-button.addEventListener('click', e => {
+  button.addEventListener('click', e => {
   const forms = document.getElementById('post_procedures_forms')
-  const lastForm = forms.lastElementChild
+  const targetForms = forms.querySelectorAll('.post_procedures_forms')
+  const lastForm = targetForms[targetForms.length - 1]
+  console.log(lastForm)
   const lastID = lastForm.getElementsByClassName('form')[0].firstElementChild.getAttribute('id')
+  //const lastID = lastForm.getAttribute('id');
   const count = parseInt(lastID.replace('post_procedures_attributes_', '').replace('_content', ''), 10) + 1;
   const extend_form = document.getElementById('extend_form').firstElementChild.cloneNode(true)
   extend_form.querySelector('span:nth-child(2) input').setAttribute('id', `post_procedures_attributes_${count}_content`)
@@ -125,6 +126,7 @@ let forms = document.querySelectorAll("#post_procedures_forms .post_procedures_f
 for(var i = 0; i < forms.length; i++){
   if (i != 0) {
     const form = forms[i]
+    console.log(form.nextElementSibling)
     const target = form.querySelector('span:last-child')
     const span = document.createElement('span')
     span.setAttribute('class', 'close_button')

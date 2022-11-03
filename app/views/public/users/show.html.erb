@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row pb-5">
 
     <div class="col-md-8 pr-5">
       <span class="headline"><%= @user.nickname %>さんの投稿一覧</span> <br><br>
@@ -40,7 +40,6 @@
     <div class="col-md-4 pl-5">
       <h5 class="pb-1 font-weight-bold">
         登録情報
-        <%= link_to "編集する", edit_user_path(current_user),class:"btn btn-success" %>
       </h5>
 
       <table class="table table-bordered">

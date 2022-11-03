@@ -1,0 +1,44 @@
+<%= render 'public/posts/list', categories: @categories,  tags: @tags%>
+
+    <div class="col-md-9 offset-1 pb-3 pt-4 pl-4">
+      <h5 class="pb-3">お気に入り一覧</h5>
+      <% @favorites.each do |favorite| %>
+      <div class="d-flex border-bottom pl-3 pr-3">
+        <div class="mt-1 mb-1">
+        <table>
+          <tr>
+            <td>
+              <%= link_to post_path(favorite.post),class: "text-primary font-weight-bold" do %>
+              <% if favorite.post.image.attached? %>
+                <%= image_tag favorite.post.image, size: "140x140" %>
+              <% else %>
+                <%= image_tag 'no_image', size: "140x140" %>
+              <%end %>
+              <% end %>
+            </td>
+
+            <td class="pt-3 pb-2 pl-3">
+              <%= link_to post_path(favorite.post) do %>
+                <span class="post-title">
+                  <%= favorite.post.title.truncate(30) %>
+                </span>
+              <% end %>
+              <span class="rank-nickname-font">
+                By<%= favorite.post.user.nickname %>
+              </span><br>
+              <%= favorite.post.outline.truncate(60) %><br><br>
+              カテゴリー:<%= favorite.post.category.category_name %>
+              <span class="pr-3 pl-5">
+                <%= favorite.post.created_at.strftime('%Y/%m/%d') %>
+              </span>
+              <%= link_to "♡#{@favorites.count}", post_path(favorite.post.id),class: "text-danger pr-3" %>
+              <i class="fas fa-comment-dots"></i><%= link_to favorite.post.comments.count, post_path(favorite.post.id),class: "text-dark pr-3" %>
+            </td>
+          </tr>
+        </table>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

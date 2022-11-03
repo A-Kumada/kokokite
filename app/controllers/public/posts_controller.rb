@@ -23,17 +23,20 @@ class Public::PostsController < ApplicationController
       params[:tag_ids].each do |key, value|
         @posts += Tag.find_by(name: key).posts.where(status: "public") if value == "1"
       end
-    elsif params[:tag_id].present?
-      @tag = Tag.find(params[:tag_id])
-      @posts = @tag.posts.where(status: "public").order(created_at: :desc)
+    #elsif params[:tag_id].present?
+      #@tag = Tag.find(params[:tag_id])
+      #@posts = @tag.posts.where(status: "public").order(created_at: :desc).sort {|a,b| b.favorites.size <=> a.favorites.size}
+    elsif params[:search].present?
+      @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
     elsif params[:category_id].present?
       @category = Category.find(params[:category_id])
       @posts = @category.posts.where(status: "public").sort {|a,b| b.favorites.size <=> a.favorites.size}
+    #elsif params[:user_id].present?
+      #@user = User.find(params[:user_id])
+      #@posts = @user.posts.where(status: "public").all.order(created_at: :desc)
     else
-      @user = User.find(params[:user_id])
-      @posts = @user.posts.where(status: "public").all.order(created_at: :desc)
+      @posts = Post.where(status: "public").all.order(created_at: :desc)
     end
-      #@tag_lists = Tag.all
     @tags = Tag.all
     @categories = Category.all
   end
@@ -49,9 +52,13 @@ class Public::PostsController < ApplicationController
       @comment = Comment.new
       @categories = Category.all
       @tags = Tag.all
-      #@tag_lists = Tag.all
     end
     @user = @post.user
+  end
+
+  def bookmark
+    @favorites = Favorite.where(user_id: current_user.id)
+    @categories = Category.all
   end
 
   def edit

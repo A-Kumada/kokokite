@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     root to: "public/homes#top"
     get "/about" => "homes#about", as: "about"
     get '/users/mypage' => 'public/users#mypage', as: 'mypage'
-    get '/users/bookmark' => 'public/homes#bookmark', as: 'bookmark'
+    get '/users/bookmark' => 'public/posts#bookmark', as: 'bookmark'
     get "/users/unsubscribe" => "public/users#unsubscribe", as: "unsubscribe"
     patch '/users/:id/withdraw' => 'public/users#withdraw', as: "withdraw"
 
@@ -29,9 +29,10 @@ Rails.application.routes.draw do
 }
 
 namespace :admin do
+    get 'top' => 'homes#top', as: 'top'
     resources :categories, only:[:index,:create,:edit,:update,:show]
     resources :users, only:[:index, :edit, :update, :show]
-    resources :posts, only:[ :show]  do
+    resources :posts, only:[ :show, :edit, :update, :destroy]  do
         resources :comments, only:[ :destroy]
     end
 end

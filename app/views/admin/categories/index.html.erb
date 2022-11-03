@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-5 offset-md-3">
+    <div class="col-md-5 offset-md-3 pt-5">
 
     <h3 class="pb-3">カテゴリ一覧　変更・追加</h3>
     <%= form_with model: @category, url: admin_categories_path do |f| %>
@@ -14,22 +14,22 @@
   </div>
 
   <div class="row">
-    <div class="col-md-7 offset-md-2 pt-5">
+    <div class="col-md-6 offset-md-2 pt-4 pb-5">
 
     <table class="table table-hover table-inverse">
      <tr class="bg-light">
-       <td class="pl-5">カテゴリ</td>
+       <th class="pl-5">カテゴリ</th>
        <td>　</td>
      </tr>
      <% @categories.each do |category| %>
      <tr>
-       <td class="pl-5"><%= category.category_name %></td>
+       <th class="pl-5"><%= category.category_name %></th>
        <td class="pl-5"><%= link_to edit_admin_category_path(category.id),class:"text-right btn btn-success" do %>編集する
        <% end %>
        </td>
      </tr>
     <% end %>
-   </table>
+     </table>
 
     </div>
   </div>

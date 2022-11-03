@@ -19,20 +19,24 @@
       <nav class="navbar navbar-expand-lg p-4">
       <div class="container">
       <a class="navbar-brand" href="/">
-        <span class="pl-4 pr-4 pt-2 pb-2 border text-dark">ココキテ</span>
+        <span class="pl-4 pr-4 pt-2 pb-2 text-dark rogo">
+          <span class="logo-icon"><%= image_tag 'logo.jpg' %></span>
+          ココキテ</span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
-
-        <%= form_tag posts_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
-        <p>
+      <div class="pl-5">
+      <%= form_tag posts_path, :method => 'get' do %>
+        <p class="pt-3">
         <%= text_field_tag :search, params[:search] %>
         <%= submit_tag "検索", :title => nil %>
         </p>
-        <% end %>
+      <% end %>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
 
         <% if user_signed_in? %>
           <li>
@@ -51,24 +55,27 @@
             <%= link_to destroy_user_session_path, method: :delete, class:"nav-link text-dark ml-3" do %>
             <i class="fas fa-sign-out-alt"></i>
               ログアウト
-              <% end %>
+            <% end %>
           <li>
 
         <% elsif admin_signed_in? %>
           <li>
-            <%#= link_to admin_posts_path,class:"nav-link border text-dark" do %>投稿一覧
-            <%# end %>
-          </li>
-          <li>
-            <%= link_to admin_users_path,class:"nav-link border text-dark ml-5" do %>会員一覧
+            <%= link_to admin_categories_path,class:"nav-link text-dark" do %>
+              カテゴリ一覧
             <% end %>
           </li>
           <li>
-            <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link border text-dark ml-5" do %>
-            ログアウト
+            <%= link_to admin_users_path,class:"nav-link text-dark ml-3" do %>
+            <i class="fas fa-user"></i>
+              会員一覧
             <% end %>
           </li>
-
+          <li>
+            <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-dark ml-3" do %>
+            <i class="fas fa-sign-out-alt"></i>
+              ログアウト
+            <% end %>
+          </li>
         <% else %>
           <li>
             <%= link_to new_user_registration_path, class:"nav-link text-dark ml-5" do %>
