@@ -3,26 +3,27 @@
     <div class="col-md-9 offset-1 ">
 
       <% @posts.each do |post| %>
-      <div class="d-flex border pl-3 pr-4" >
-        <div class="mt-3 mb-3">
+      <div class="d-flex border-bottom pl-3 pr-4" >
+        <div class="mt-1 mb-3">
         <table>
           <tr>
             <td>
               <%#= image_tag post.get_image(100,100) %>
               <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
               <% if post.image.attached? %>
-                <%= image_tag post.image, size: "150x150" %>
+                <%= image_tag post.image, size: "140x140" %>
               <% else %>
-                <%= image_tag 'no_image', size: "150x150" %>
+                <%= image_tag 'no_image', size: "140x140" %>
               <%end %>
               <% end %>
             </td>
             <td class="pl-4">
               <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
-                <span class="post-title"><%= post.title %><br></span>
+                <span class="post-title font-weight-bold"><%= post.title.truncate(30) %><br></span>
               <% end %>
-              <%= post.outline.truncate(60) %><br>
+              <%= post.outline.truncate(60) %><br><br>
               <%= link_to "♡#{post.favorites.count}", post_path(post.id),class: "text-danger pr-3" %>
+              <i class="fas fa-comment-dots"></i><%= link_to post.comments.count, post_path(post.id),class: "text-dark pr-3" %>
             </td>
           </tr>
         </table>

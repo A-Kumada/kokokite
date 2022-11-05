@@ -5,7 +5,7 @@
       <span class="headline"><%= @user.nickname %>さんの投稿一覧</span> <br><br>
       <div class="pl-5">
       <% @user.posts.each do |post| %>
-      <div class="d-flex border-bottom pl-3 pr-3">
+      <div class="d-flex border-bottom pl-2 pr-3">
         <div class="mt-1 mb-1">
           <table>
             <tr>
@@ -20,9 +20,9 @@
               </td>
               <td class="pl-4">
                 <%= link_to post_path(post) do %>
-                  <span class="post-title"><%= post.title %>
+                  <span class="post-title font-weight-bold"><%= post.title.truncate(30) %></span>
                 <% end %> <br>
-                <%= post.outline.truncate(30) %> <br><br>
+                <%= post.outline.truncate(50) %> <br><br>
                 <span class="pr-3"><%= post.created_at.strftime('%Y/%m/%d') %></span>
                 <%= link_to "♡#{post.favorites.count}", post_path(post.id),class: "text-danger pr-3" %>
                 <i class="fas fa-comment-dots"></i><%= link_to post.comments.count, post_path(post.id),class: "text-dark pr-3" %>
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="col-md-4 pl-5">
+    <div class="col-md-4 pl-4">
       <h5 class="pb-1 font-weight-bold">
         登録情報
         <%= link_to "編集する", edit_user_path(current_user),class:"btn btn-success" %>

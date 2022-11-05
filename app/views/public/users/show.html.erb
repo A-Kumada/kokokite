@@ -20,7 +20,7 @@
               </td>
               <td class="pl-4">
                 <%= link_to post_path(post) do %>
-                  <span class="post-title"><%= post.title %>
+                  <span class="post-title font-weight-bold"><%= post.title %>
                 <% end %> <br>
                 <%= post.outline.truncate(30) %> <br><br>
                 <span class="pr-3">
@@ -60,8 +60,6 @@
           <td><%= @user.email %></td>
         </tr>
       </table>
-
-      <%= link_to "お気に入り一覧へ", bookmark_path, class:"btn btn-info" %>
 
     </div>
   </div>

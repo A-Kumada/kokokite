@@ -49,8 +49,9 @@
 }
 
 .post-title {
-  font-size: 20px;
-  color: #440000;
+  font-size: 18px;
+  color: #696969;
+  font-weight: 200;
 }
 
 .comment-created_at {
