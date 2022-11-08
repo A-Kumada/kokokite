@@ -1,7 +1,7 @@
 class Public::UsersController < ApplicationController
   #before_action :authenticate_user!
   #before_action :set_current_user
-  before_action :guest_check, only: %i[edit withdraw]#%i[update destroy]
+  before_action :guest_check, only: %i[edit withdraw]
 
   def mypage
     @user = current_user
@@ -38,7 +38,7 @@ class Public::UsersController < ApplicationController
   end
 
   def guest_check
-    if current_user == User.find(2)
+    if current_user == User.find(1)
       redirect_to root_path,notice: "ゲストユーザーの更新・削除はできません。"
     end
   end

@@ -19,7 +19,7 @@ class Public::CommentsController < ApplicationController
   end
 
   def guest_check
-    if current_user == User.find(2)
+    if current_user == User.find(1)
       redirect_to root_path,notice: "コメントするには会員登録が必要です。"
     end
   end
