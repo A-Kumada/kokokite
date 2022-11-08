@@ -15,8 +15,8 @@ enum status: { public: 0, private: 1 }, _prefix: true #記事の公開・非公�
 
 belongs_to :user
 belongs_to :category
-has_many :tagmaps, dependent: :destroy
-has_many :tags, through: :tagmaps
+has_many :post_tag_relations, dependent: :destroy
+has_many :tags, through: :post_tag_relations, dependent: :destroy
 has_many :comments, dependent: :destroy
 has_many :favorites, dependent: :destroy
 has_many :procedures, dependent: :destroy
