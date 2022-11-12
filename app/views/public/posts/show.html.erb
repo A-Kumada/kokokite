@@ -19,11 +19,8 @@
           <% end %>
         <% end %>
         <% if current_user== @post.user %>
-          <%= link_to "編集する", edit_post_path(@post),class:"btn btn-success" %>
+          <%= link_to "編集する", edit_post_path(@post),class:"btn btn-success", data: {"turbolinks" => false} %>
           <%= link_to "削除する", post_path(@post),class:"btn btn-danger", method: :delete, "data-confirm" => "本当に消しますか?" %>
-        <% elsif admin_signed_in? %>
-          <%= link_to "管路者用編集", edit_post_path(@post),class:"btn btn-success" %>
-          <%= link_to "管理者削除", post_path(@post),class:"btn btn-danger", method: :delete, "data-confirm" => "本当に消しますか?" %>
         <% end %>
         <br><br>
 
@@ -37,9 +34,9 @@
         <% end%><br><br>
 
         <% if @post.image.attached? %>
-          <%= image_tag @post.image, size: "400x300" %>
+          <%= image_tag @post.image, size: "200x200" %>
         <% else %>
-          <%= image_tag 'no_image', size: "180x180" %>
+          <%= image_tag 'no_image.jpg', size: "180x180" %>
         <% end %> <br><br>
 
         <% @post.tags.each do |tag| %>

@@ -18,11 +18,23 @@
     <header>
       <nav class="navbar navbar-expand-lg p-4">
       <div class="container">
-      <a class="navbar-brand" href="/">
+
+      <% if admin_signed_in? %>
+        <a class="navbar-brand" href="/admin/posts">
         <span class="pl-4 pr-4 pt-2 pb-2 text-dark rogo">
           <span class="logo-icon"><%= image_tag 'logo.jpg' %></span>
-          ココキテ</span>
-      </a>
+          ココキテ
+        </span>
+        </a>
+      <% else %>
+        <a class="navbar-brand" href="/">
+          <span class="pl-4 pr-4 pt-2 pb-2 text-dark rogo">
+            <span class="logo-icon"><%= image_tag 'logo.jpg' %></span>
+            ココキテ
+          </span>
+        </a>
+      <% end %>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -62,6 +74,12 @@
           <li>
             <%= link_to admin_categories_path,class:"nav-link text-dark" do %>
               カテゴリ一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_posts_path,class:"nav-link text-dark ml-3" do %>
+              <i class="fas fa-pen"></i>
+              投稿一覧
             <% end %>
           </li>
           <li>

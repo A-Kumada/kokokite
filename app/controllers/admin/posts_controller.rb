@@ -1,10 +1,30 @@
 class Admin::PostsController < ApplicationController
  before_action :authenticate_admin!
 
+  def index
+    if params[:tag_ids]
+      @posts = []
+      params[:tag_ids].each do |key, value|
+        @posts += Tag.find_by(name: key).posts.where(status: "public") if value == "1"
+      end
+    elsif params[:search].present?
+      @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
+    elsif params[:category_id].present?
+      @category = Category.find(params[:category_id])
+      @posts = @category.posts.where(status: "public").sort {|a,b| b.favorites.size <=> a.favorites.size}
+    else
+      @posts = Post.where(status: "public").all.order(created_at: :desc)
+    end
+    @tags = Tag.all
+    @categories = Category.all
+  end
+
+
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
     @user = @post.user
+    @categories = Category.all
   end
 
   def edit

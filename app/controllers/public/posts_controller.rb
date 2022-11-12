@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   before_action :guest_check, only: %i[new]
 
   def new
@@ -23,17 +23,11 @@ class Public::PostsController < ApplicationController
       params[:tag_ids].each do |key, value|
         @posts += Tag.find_by(name: key).posts.where(status: "public") if value == "1"
       end
-    #elsif params[:tag_id].present?
-      #@tag = Tag.find(params[:tag_id])
-      #@posts = @tag.posts.where(status: "public").order(created_at: :desc).sort {|a,b| b.favorites.size <=> a.favorites.size}
     elsif params[:search].present?
       @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
     elsif params[:category_id].present?
       @category = Category.find(params[:category_id])
       @posts = @category.posts.where(status: "public").sort {|a,b| b.favorites.size <=> a.favorites.size}
-    #elsif params[:user_id].present?
-      #@user = User.find(params[:user_id])
-      #@posts = @user.posts.where(status: "public").all.order(created_at: :desc)
     else
       @posts = Post.where(status: "public").all.order(created_at: :desc)
     end

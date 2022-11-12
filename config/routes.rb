@@ -32,7 +32,7 @@ namespace :admin do
     get 'top' => 'homes#top', as: 'top'
     resources :categories, only:[:index,:create,:edit,:update,:show]
     resources :users, only:[:index, :edit, :update, :show]
-    resources :posts, only:[ :show, :edit, :update, :destroy]  do
+    resources :posts, only:[ :show, :edit, :update, :destroy, :index]  do
         resources :comments, only:[ :destroy]
     end
 end

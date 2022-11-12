@@ -20,7 +20,9 @@
               </td>
               <td class="pl-4">
                 <%= link_to post_path(post) do %>
-                  <span class="post-title font-weight-bold"><%= post.title.truncate(30) %></span>
+                  <span class="post-title font-weight-bold">
+                    <%= post.title.truncate(30) %>
+                  </span>
                 <% end %> <br>
                 <%= post.outline.truncate(50) %> <br><br>
                 <span class="pr-3"><%= post.created_at.strftime('%Y/%m/%d') %></span>
@@ -35,7 +37,7 @@
       </div>
     </div>
 
-    <div class="col-md-4 pl-4">
+    <div class="col-md-4 pl-4 pb-5">
       <h5 class="pb-1 font-weight-bold">
         登録情報
         <%= link_to "編集する", edit_user_path(current_user),class:"btn btn-success" %>

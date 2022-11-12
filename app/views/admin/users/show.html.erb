@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-md-4 pt-5">
+    <div class="col-md-4 pt-5 pb-5">
       <h5 class="pb-1 font-weight-bold">
         登録情報
         <%= link_to "編集する", edit_admin_user_path,class:"btn btn-success" %>
@@ -40,7 +40,7 @@
       </table>
     </div>
 
-    <div class="col-md-8 pt-5">
+    <div class="col-md-8 pt-5 pb-5">
       <div class="pl-5"><br><br>
       <% @user.posts.each do |post| %>
       <div class="d-flex border-bottom pl-3 pr-3">
@@ -52,13 +52,15 @@
                   <% if post.image.attached? %>
                     <%= image_tag post.image, size: "140x140" %>
                   <% else %>
-                    <%= image_tag 'no_image', size: "140x140" %>
+                    <%= image_tag 'no_image.jpg', size: "140x140" %>
                   <% end %>
                 <% end %>
               </td>
               <td class="pl-4">
                 <%= link_to admin_post_path(post) do %>
-                  <span class="post-title"><%= post.title %>
+                  <span class="post-title font-weight-bold">
+                    <%= post.title %>
+                  </span>
                 <% end %> <br>
                 <%= post.outline.truncate(60) %> <br><br>
                 <span class="pr-3">

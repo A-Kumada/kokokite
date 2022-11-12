@@ -1,25 +1,13 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-3 pl-5 pt-4">
-      <%= link_to "前の画面に戻る", admin_user_path(@user),class:"btn btn-secondary" %>
-    </div>
+<%= render 'admin/posts/list', categories: @categories,  tags: @tags%>
 
-  <div class="col-md-8 border">
-      <div class="pt-4 pl-3 pr-3">
-        <% if @post.favorited_by?(current_user) %>
-          <%= link_to post_favorites_path(@post),class:"btn btn-light", method: :delete do %>
-            お気に入り解除
-          <% end %>
-        <% else %>
-          <%= link_to post_favorites_path(@post),class:"btn btn-info", method: :post do %>
-            お気に入りに登録
-          <% end %>
-        <% end %>
+   <div class="col-md-9 offset-1">
+    <div class="border pb-3">
+      <div class="p-5">
         <% if current_user== @post.user %>
           <%= link_to "編集する", edit_post_path(@post),class:"btn btn-success" %>
           <%= link_to "削除する", post_path(@post),class:"btn btn-danger", method: :delete, "data-confirm" => "本当に消しますか?" %>
         <% elsif admin_signed_in? %>
-          <%= link_to "管路者用編集", edit_admin_post_path(@post),class:"btn btn-success" %>
+          <%= link_to "管理者用編集", edit_admin_post_path(@post),class:"btn btn-success" %>
           <%= link_to "管理者削除", admin_post_path(@post),class:"btn btn-danger", method: :delete, "data-confirm" => "本当に消しますか?" %>
         <% end %>
         <br><br>
@@ -29,15 +17,15 @@
         <span style="font-size:25px">
           <%= @post.title %>
         </span>
-        <%= link_to posts_path(user_id: @post.user), class: "text-secondary" do %><br>
-          ️<%= @post.user.nickname %>さんの投稿
-        <% end%><br>
+        <%= link_to admin_user_path(@user), class: "text-secondary" do %><br>
+          <i class="fas fa-pen"></i>️<%= @post.user.nickname %>
+        <% end %><br><br>
 
         <% if @post.image.attached? %>
-          <%= image_tag @post.image, size: "400x300" %>
+          <%= image_tag @post.image, size: "200x200" %>
         <% else %>
-          <%= image_tag 'no_image', size: "200x200" %>
-        <% end %> <br>
+          <%= image_tag 'no_image.jpg', size: "188x180" %>
+        <% end %> <br><br>
 
         <% @post.tags.each do |tag| %>
         <div class="btn btn-secondary">
@@ -54,9 +42,6 @@
           <p><%= @post.necessaries %></p>
         　<p><i class="fas fa-hand-point-up"></i>ポイント</p>
           <p><%= @post.point %></p>
-            <%# @post.tags.each do |tag| %>
-            <%#= tag.tag_name %>
-            <%# end %>
 
 　        <p>【手順】</p>
           <p>
@@ -68,30 +53,29 @@
       </div>
     </div>
 
-    <div class="col-md-8 pb-5">
-      <div class="offset-5">
-        <div class="pt-4">
-          【コメントをする】　コメント件数：<%= @post.comments.count %>
-          <div class="pt-2">
+    <div class="offset-1 pt-3 pb-5">
+      <div class="pt-4 pb-5">
+        【コメントをする】　コメント件数：<%= @post.comments.count %>
+        <div class="pt-2">
           <%= form_with model: [@post, @comment], url: post_comments_path(post_id: @post) do |f| %>
           <%= f.text_area :comment, :size=>"30x4", placeholder: "コメントをここに" %>
           <%= f.submit "送信する" %>
           <% end %>
-          </div>
+        </div>
 
-          <% @post.comments.each do |comment| %>
-            <div class="rounded border-bottom w-30 pr-4 pt-3">
-              <div class="text-right text-secondary"><%= comment.created_at.strftime('%Y/%m/%d') %></div>
-              <%= link_to link_to(comment.user.nickname, user_path(comment.user_id)), class: "text-secondary" %>
-              <br>
-              <%= comment.comment %>
-              <% if current_user == comment.user %>
-                <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
-              <% elsif admin_signed_in? %>
-                <%= link_to "管理者用削除", admin_post_comment_path(comment.post, comment), method: :delete, "data-confirm" => "本当に消しますか?" %>
-              <% end %><br>
-            </div>
-          <% end %>
+        <% @post.comments.each do |comment| %>
+          <div class="rounded border-bottom w-75 pr-4 pt-3">
+            <div class="text-right text-secondary"><%= comment.created_at.strftime('%Y/%m/%d') %></div>
+            <%= link_to link_to(comment.user.nickname, user_path(comment.user_id)), class: "text-secondary" %>
+            <br>
+            <%= comment.comment %>
+            <% if current_user == comment.user %>
+              <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+            <% elsif admin_signed_in? %>
+              <%= link_to "管理者用削除", admin_post_comment_path(comment.post, comment), method: :delete, "data-confirm" => "本当に消しますか?" %>
+            <% end %><br>
+          </div>
+        <% end %>
 
         </div>
       </div>

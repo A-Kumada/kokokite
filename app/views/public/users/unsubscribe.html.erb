@@ -12,7 +12,7 @@
       退会する場合は、「退会する」をクリックしてください。<br><br><br>
 
 　    <%= link_to "退会しない", mypage_path(current_user),class:"btn btn-primary" %>
-　    <%= link_to "退会する", withdraw_path, method: :patch, "data-confirm"=>"本当に退会しますか？" ,class:"btn btn-danger" %>
+　    <%= link_to "退会する", withdraw_path(@user), method: :patch, "data-confirm"=>"本当に退会しますか？" ,class:"btn btn-danger" %>
 
 　   </h5>
 　</div>

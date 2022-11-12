@@ -30,10 +30,10 @@
 
     <div class="pt-3 pb-3">
       <h4 class="pt-5 pb-4">新着　NEW！</h4>
-        <div class="d-flex pr-3">
+      <div class="d-flex pr-3">
         <% @posts.each do |post| %>
-          <div class="rounded ml-4 mr-4">
-            <ul class="navbar-nav ml-auto">
+        <div class="rounded ml-4 mr-4">
+          <ul class="navbar-nav ml-auto">
             <li>
               <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
                 <% if post.image.attached? %>
@@ -47,10 +47,11 @@
                 <%= post.title.truncate(25) %>
               <% end %>
               <span class="rank-nickname-font pl-1">by<%= post.user.nickname %></span>
-            </ll>
-          </div>
-        <% end %>
+            </li>
+          </ul>
         </div>
+        <% end %>
+      </div>
     </div>
 
       <h4 class="pt-5 pb-4">
@@ -77,7 +78,7 @@
           <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
             <%= post.title.truncate(25) %>
           <% end %>
-          <span class="rank-nickname-font">by<%= post.user.nickname %></span>
+          <span class="rank-nickname-font">by <%= post.user.nickname %></span>
           </li>
         </div>
         <% end %>

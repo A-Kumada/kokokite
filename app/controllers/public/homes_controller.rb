@@ -1,4 +1,5 @@
 class Public::HomesController < ApplicationController
+
   def top
     @categories = Category.all
     @posts = Post.where(status:"public").all.order(created_at: :desc).limit(5)
