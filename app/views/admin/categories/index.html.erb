@@ -17,19 +17,20 @@
     <div class="col-md-6 offset-md-2 pt-4 pb-5">
 
     <table class="table table-hover table-inverse">
-     <tr class="bg-light">
-       <th class="pl-5">カテゴリ</th>
-       <td>　</td>
-     </tr>
-     <% @categories.each do |category| %>
-     <tr>
-       <th class="pl-5"><%= category.category_name %></th>
-       <td class="pl-5"><%= link_to edit_admin_category_path(category.id),class:"text-right btn btn-success" do %>編集する
-       <% end %>
-       </td>
-     </tr>
-    <% end %>
-     </table>
+      <tr class="bg-light">
+        <th class="pl-5">カテゴリ</th>
+        <td>　</td>
+      </tr>
+      <% @categories.each do |category| %>
+      <tr>
+        <th class="pl-5 pt-3"><%= category.category_name %></th>
+        <td class="pl-5">
+          <%= link_to "編集する", edit_admin_category_path(category.id),class:"text-right btn btn-success" %>
+          <%= link_to "削除する", admin_category_path(category.id),class:"text-right btn btn-danger", method: :delete, "data-confirm" => "本当に消しますか?" %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
 
     </div>
   </div>

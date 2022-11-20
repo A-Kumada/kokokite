@@ -1,7 +1,6 @@
 class Public::UsersController < ApplicationController
   #before_action :authenticate_user!
-  #before_action :set_current_user
-  before_action :guest_check, only: %i[edit withdraw]
+  before_action :guest_check, only: %i[edit unsubscribe]
 
   def mypage
     @user = current_user
@@ -20,8 +19,8 @@ class Public::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     unless
-      @user == current_user || admin_signed_in?
-      redirect_to mypage_path
+      @user == current_user
+      redirect_to root_path
     end
   end
 
@@ -37,12 +36,6 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  def guest_check
-    if current_user == User.find(1)
-      redirect_to root_path,notice: "ゲストユーザーの更新・削除はできません。"
-    end
-  end
-
   def unsubscribe
     @user = User.find(current_user.id)
   end
@@ -52,6 +45,12 @@ class Public::UsersController < ApplicationController
     @user.update(is_active: "false")
     reset_session
     redirect_to root_path
+  end
+
+  def guest_check
+    if current_user.email == 'guest@example.com'
+      redirect_to root_path,notice: "ゲストユーザーの更新・削除はできません。"
+    end
   end
 
   private

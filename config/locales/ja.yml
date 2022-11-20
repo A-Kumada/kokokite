@@ -21,6 +21,8 @@ ja:
         password: パスワード
         password_confirmation: パスワード(確認用)
         email: メールアドレス
+      category:
+        category_name: カテゴリー名
     errors:
       models:
         post:
@@ -42,4 +44,3 @@ ja:
           attributes:
             content:
               blank: "は1つ以上入力してください"
-

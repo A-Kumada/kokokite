@@ -81,7 +81,7 @@ class Public::PostsController < ApplicationController
   end
 
   def guest_check
-    if current_user == User.find(1)
+    if current_user.email == 'guest@example.com'
       redirect_to root_path,notice: "このページを見るには会員登録が必要です。"
     end
   end

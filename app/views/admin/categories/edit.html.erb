@@ -1,3 +1,16 @@
+<% if @category.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      入力エラーが <%= pluralize(@category.errors.count, "件ありました") %>.
+    </div>
+    <ul>
+    <% @category.errors.full_messages.each do |msg| %>
+      <li class="nav-link"><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="container">
   <div class='row'>
     <div class="col-8 offset-1 pb-5 pt-5">
@@ -7,9 +20,9 @@
 
   <%= form_with model: @category, url: admin_category_path(@category.id), method: :patch do |category| %>
 
-  <div class='row pb-5'>
+  <div class='row pb-5 offset-2'>
     <div class="col-1.5 pr-5">
-      <p>ジャンル名</p>
+      <p>カテゴリ名</p>
     </div>
     <div class="col-2">
       <%= category.text_field :category_name %>

@@ -3,13 +3,11 @@ is_impressionable  #アクセスランキング用
 has_one_attached :image
 
 validates :category_id, presence: true
-validates :title, presence: true
+validates :title, presence: true, length: { maximum: 255 }
 validates :outline, presence: true
-validates :necessaries, presence: true
+validates :necessaries, presence: true, length: { maximum: 255 }
 validates :point, presence: true
 validates :procedures, presence: true
-validates :title, :necessaries,
-    length: { maximum: 255 }
 
 enum status: { public: 0, private: 1 }, _prefix: true #記事の公開・非公開用
 

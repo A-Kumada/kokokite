@@ -1,7 +1,4 @@
-<%# if flash[:notice] %>
- <%#div class="alert alert-success" role="alert">
- <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
-<%# end %>
+
 <% if @post.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
