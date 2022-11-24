@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Kokokite</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -16,7 +16,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg p-4">
+      <nav class="navbar navbar-expand-lg navbar-light p-4">
       <div class="container">
 
       <% if admin_signed_in? %>
@@ -35,9 +35,6 @@
         </a>
       <% end %>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div class="pl-5">
       <%= form_tag posts_path, :method => 'get' do %>
         <p class="pt-3">
@@ -46,6 +43,10 @@
         </p>
       <% end %>
       </div>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
