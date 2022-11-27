@@ -24,6 +24,12 @@
   margin-top: 5px;
 }
 
+.new-user-center {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .rank-nickname-font {
   font-size: 14px;
   color: gray;

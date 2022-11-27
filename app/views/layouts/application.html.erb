@@ -21,7 +21,7 @@
 
       <% if admin_signed_in? %>
         <a class="navbar-brand" href="/admin/posts">
-        <span class="pl-4 pr-4 pt-2 pb-2 text-dark rogo">
+        <span class="pl-2 pr-2 pt-2 pb-2 text-dark rogo">
           <span class="logo-icon"><%= image_tag 'logo.jpg' %></span>
           ココキテ
         </span>
@@ -35,7 +35,7 @@
         </a>
       <% end %>
 
-      <div class="pl-5">
+      <div class="pl-4">
       <%= form_tag posts_path, :method => 'get' do %>
         <p class="pt-3">
         <%= text_field_tag :search, params[:search] %>
