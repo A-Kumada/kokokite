@@ -4,7 +4,8 @@
 
     <% if flash[:notice] %>
       <div class="alert alert-success" role="alert">
-      <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
+      <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p>
+      </div>
     <% end %>
 
     <div class="border pb-3">
@@ -37,13 +38,11 @@
           <%= image_tag @post.image, size: "200x200" %>
         <% else %>
           <%= image_tag 'no_image.jpg', size: "180x180" %>
-        <% end %> <br><br>
-
-        <% @post.tags.each do |tag| %>
-        <div class="btn btn-secondary">
-          <span>#<%= tag.name %></span>
-        </div>
         <% end %>
+
+        <div class="pt-3">
+          投稿日：<%= @post.created_at.strftime('%Y/%m/%d') %>
+        </div>
 
         <div class="pb-3 pt-3 w-100">
         　<div class="pt-1 pb-3">
@@ -64,6 +63,15 @@
             <%= procedure.content %><br>
             <% end %>
           </p>
+
+          <div class="pt-3">
+            <% @post.tags.each do |tag| %>
+            <div class="btn btn-secondary">
+              <span>#<%= tag.name %></span>
+            </div>
+            <% end %>
+          </div>
+
         </div>
       </div>
     </div>

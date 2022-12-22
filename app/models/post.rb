@@ -43,6 +43,7 @@ def self.search(search) #検索機能
   Post.where(['title LIKE ?', "%#{search}%"])
 end
 
+
   #def save_posts(tags)
    # current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
    # old_tags = current_tags - tags

@@ -8,12 +8,12 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field">
             <%= f.label :"メールアドレス" %><br>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", :size=>"40" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", :size=>"30" %>
           </div>
 
           <div class="field">
             <%= f.label :"パスワード" %></br>
-            <%= f.password_field :password, autocomplete: "current-password", :size=>"40" %>
+            <%= f.password_field :password, autocomplete: "current-password", :size=>"30" %>
               <% if devise_mapping.rememberable? %>
               <div class="field">
                 <%= f.check_box :remember_me %>
@@ -22,7 +22,7 @@
               <% end %>
           </div>
 
-          <div class="actions offset-3 pt-2">
+          <div class="actions offset-2 pl-1">
             <%= f.submit "ログイン",class:"btn btn-success pl-5 pr-5" %>
           </div>
 
@@ -32,7 +32,7 @@
         <h6 class="pb-2 text-center">まだ会員登録されていない方は<%= link_to "こちら", new_user_registration_path %></h6>
 
         <%#= render "public/shared/links" %>
-        <span class="pl-5 pb-5">※会員登録は無料です</span><br><br>
+        <span class="pl-3 pb-5">※会員登録は無料です</span><br><br>
 
       </div>
     </div>

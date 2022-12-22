@@ -1,6 +1,12 @@
+<% if flash[:notice] %>
+  <div class="alert alert-success" role="alert">
+  <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p>
+  </div>
+<% end %>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-5 offset-md-3 pt-5">
+    <div class="col-md-6 offset-md-3 pt-5 pl-5">
 
     <h3 class="pb-3">カテゴリ一覧　変更・追加</h3>
     <%= form_with model: @category, url: admin_categories_path do |f| %>
@@ -14,7 +20,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 offset-md-2 pt-4 pb-5">
+    <div class="col-md-6 offset-md-3 pt-4 pb-5">
 
     <table class="table table-hover table-inverse">
       <tr class="bg-light">

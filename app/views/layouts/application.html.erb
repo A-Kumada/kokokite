@@ -33,9 +33,7 @@
             ココキテ
           </span>
         </a>
-      <% end %>
-
-      <div class="pl-4">
+         <div class="pl-4">
       <%= form_tag posts_path, :method => 'get' do %>
         <p class="pt-3">
         <%= text_field_tag :search, params[:search] %>
@@ -43,6 +41,9 @@
         </p>
       <% end %>
       </div>
+      <% end %>
+
+
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -12,8 +12,11 @@ end
 
 def create
   @category = Category.new(category_params)
-  @category.save
-  redirect_to admin_categories_path
+  if @category.save
+    redirect_to admin_categories_path
+  else
+    redirect_to admin_categories_path,notice: "カテゴリ名が空白または255文字超えています"
+  end
 end
 
 def edit
