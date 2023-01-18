@@ -71,6 +71,10 @@
   text-align: left;
 }
 
+.tag_list {
+  list-style: none;
+}
+
 footer {
   width: 100%;
   height: 120px;

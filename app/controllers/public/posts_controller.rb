@@ -19,10 +19,11 @@ class Public::PostsController < ApplicationController
 
   def index
     if params[:tag_ids]
-      @posts = []
+      tag_ids=[]
       params[:tag_ids].each do |key, value|
-        @posts += Tag.find_by(name: key).posts.where(status: "public") if value == "1"
+        tag_ids += Tag.where(name: key).pluck(:id) if value == "1"
       end
+      @posts = Post.joins(:tags).where(status: "public").where(tags:{id: tag_ids}).distinct
     elsif params[:search].present?
       @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
     elsif params[:category_id].present?

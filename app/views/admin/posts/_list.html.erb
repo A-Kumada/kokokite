@@ -6,7 +6,7 @@
       <p>カテゴリ検索</p>
       <% categories.each do |category| %>
       <td>
-        <%= link_to category.category_name, admin_posts_path(category_id: category.id), class: "text-secondary" %>
+        <%= link_to category.category_name, posts_path(category_id: category.id), class: "text-secondary" %>
       </td><br>
       <% end %>
       <br><br>

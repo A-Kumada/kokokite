@@ -6,9 +6,9 @@
       <% if params[:search] %>
         "<%= params[:search] %>"の検索結果
       <% end %>
-    </span><br><br>
+    </span>
       <% if @posts.count== 0 %>
-       <h5 class="pl-4">※検索結果がありませんでした</h5>
+       <h5 class="pl-4 pt-2">※検索結果がありませんでした</h5>
       <% end %>
       <br><br>
       <% @posts.each do |post| %>
