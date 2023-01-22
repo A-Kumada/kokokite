@@ -35,9 +35,9 @@
         <% end%><br><br>
 
         <% if @post.image.attached? %>
-          <%= image_tag @post.image, size: "200x200" %>
+          <%= image_tag @post.image, class: "thumbnail" %>
         <% else %>
-          <%= image_tag 'no_image.jpg', size: "180x180" %>
+          <%= image_tag 'no_image.jpg', class: "thumbnail-default" %>
         <% end %>
 
         <div class="pt-3">
@@ -53,9 +53,6 @@
           <p><%= @post.necessaries %></p>
         　<p><i class="fas fa-hand-point-up"></i>ポイント</p>
           <p><%= @post.point %></p>
-            <%# @post.tags.each do |tag| %>
-            <%#= tag.tag_name %>
-            <%# end %>
 
 　        <p>【手順】</p>
           <p>

@@ -4,7 +4,7 @@
     <div class="col-md-8 pr-5">
       <span class="headline"><%= @user.nickname %>さんの投稿一覧</span> <br><br>
       <div class="pl-5">
-      <% @user.posts.each do |post| %>
+      <% @posts.each do |post| %>
       <div class="d-flex border-bottom pl-3 pr-3">
         <div class="mt-1 mb-1">
           <table>
@@ -12,9 +12,9 @@
               <td>
                 <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
                   <% if post.image.attached? %>
-                    <%= image_tag post.image, size: "140x140" %>
+                    <%= image_tag post.image, class: "thumbnail-index" %>
                   <% else %>
-                    <%= image_tag 'no_image.jpg', size: "140x140" %>
+                    <%= image_tag 'no_image.jpg', class: "thumbnail-index" %>
                   <% end %>
                 <% end %>
               </td>
@@ -34,6 +34,9 @@
         </div>
       </div> <br>
       <% end %>
+      <div class="offset-4 pb-5">
+        <div><%= paginate @posts, :previous_label => '前へ', :next_label => '次へ', :inner_window => 2 %></div>
+      </div>
       </div>
     </div>
 

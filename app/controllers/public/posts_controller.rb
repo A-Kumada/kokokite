@@ -23,7 +23,7 @@ class Public::PostsController < ApplicationController
       params[:tag_ids].each do |key, value|
         tag_ids += Tag.where(name: key).pluck(:id) if value == "1"
       end
-      @posts = Post.joins(:tags).where(status: "public").where(tags:{id: tag_ids}).distinct
+      @posts = Post.joins(:tags).where(status: "public").where(tags:{id: tag_ids}).distinct.page(params[:page])
     elsif params[:search].present?
       @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
     elsif params[:category_id].present?

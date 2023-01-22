@@ -36,14 +36,14 @@
             <li>
               <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
                 <% if post.image.attached? %>
-                  <%= image_tag post.image, size: "150x150" %>
+                  <%= image_tag post.image, class: "top-thumbnail" %>
                 <% else %>
-                  <%= image_tag 'no_image.jpg', size: "150x150" %>
+                  <%= image_tag 'no_image.jpg', class: "top-thumbnail" %>
                 <% end %>
               <% end %><br>
 
               <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
-                <%= post.title.truncate(12) %>
+                <%= post.title.truncate(11) %>
               <% end %><br>
               <span class="rank-nickname-font pl-1">by<%= post.user.nickname %></span>
             </li>
@@ -67,14 +67,14 @@
             <li>
               <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
                 <% if post.image.attached? %>
-                  <%= image_tag post.image, size: "150x150" %>
+                  <%= image_tag post.image, class: "top-thumbnail" %>
                 <% else %>
-                  <%= image_tag 'no_image.jpg', size: "150x150" %>
+                  <%= image_tag 'no_image.jpg', class: "top-thumbnail" %>
                 <% end %>
               <% end %><br>
 
           <%= link_to post_path(post),class: "text-secondary font-weight-bold" do %>
-            <%= post.title.truncate(12) %>
+            <%= post.title.truncate(11) %>
           <% end %><br>
           <span class="rank-nickname-font">by <%= post.user.nickname %></span>
           </li>
