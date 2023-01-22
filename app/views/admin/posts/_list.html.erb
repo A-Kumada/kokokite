@@ -3,7 +3,7 @@
     <div class="col-md-2">
 
       <div class="pt-2 pb-2 pl-3 pr-2">
-      <p>カテゴリ検索</p>
+      <h5 class="pb-1">カテゴリ検索</h5>
       <% categories.each do |category| %>
       <td>
         <%= link_to category.category_name, posts_path(category_id: category.id), class: "text-secondary" %>
@@ -13,7 +13,7 @@
       <p>タグ検索</p>
       <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
         <% Tag.all.each do |t| %>
-          <li class="nav-link"><%= check_box :tag_ids, t.name %><%= t.name %></li>
+          <li class="tag_list"><%= check_box :tag_ids, t.name %><%= t.name %></li>
         <% end %>
         <%= submit_tag '検索' %>
       <% end %>

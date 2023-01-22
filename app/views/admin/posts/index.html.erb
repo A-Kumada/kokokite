@@ -11,9 +11,9 @@
               <%#= image_tag post.get_image(100,100) %>
               <%= link_to admin_post_path(post),class: "text-primary font-weight-bold" do %>
                 <% if post.image.attached? %>
-                  <%= image_tag post.image, size: "140x140" %>
+                  <%= image_tag post.image, class: "thumbnail-index" %>
                 <% else %>
-                  <%= image_tag 'no_image.jpg', size: "140x140" %>
+                  <%= image_tag 'no_image.jpg', class: "thumbnail-index" %>
                 <% end %>
               <% end %>
             </td>
@@ -22,6 +22,7 @@
                 <span class="post-title font-weight-bold"><%= post.title.truncate(30) %><br></span>
               <% end %>
               <%= post.outline.truncate(60) %><br><br>
+              <span class="pr-3"><%= post.created_at.strftime('%Y/%m/%d') %></span>
               <%= link_to "♡#{post.favorites.count}", admin_post_path(post.id),class: "text-danger pr-3" %>
               <i class="fas fa-comment-dots"></i><%= link_to post.comments.count, admin_post_path(post.id),class: "text-dark pr-3" %>
             </td>

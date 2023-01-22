@@ -42,17 +42,17 @@
 
     <div class="col-md-8 pt-5 pb-5">
       <div class="pl-5"><br><br>
-      <% @user.posts.each do |post| %>
+      <% @posts.each do |post| %>
       <div class="d-flex border-bottom pl-3 pr-3">
         <div class="mb-1">
           <table>
             <tr>
-              <td>
+              <td class="pb-3">
                 <%= link_to admin_post_path(post),class: "text-primary font-weight-bold" do %>
                   <% if post.image.attached? %>
-                    <%= image_tag post.image, size: "140x140" %>
+                    <%= image_tag post.image, class: "thumbnail-index" %>
                   <% else %>
-                    <%= image_tag 'no_image.jpg', size: "140x140" %>
+                    <%= image_tag 'no_image.jpg', class: "thumbnail-index" %>
                   <% end %>
                 <% end %>
               </td>
@@ -74,6 +74,10 @@
         </div>
       </div> <br>
       <% end %>
+      <div class="offset-4 pb-5">
+        <div><%= paginate @posts %></div>
+      </div>
+      
       </div>
     </div>
   </div>
