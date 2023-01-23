@@ -25,12 +25,14 @@ class Public::PostsController < ApplicationController
       end
       @posts = Post.joins(:tags).where(status: "public").where(tags:{id: tag_ids}).distinct.page(params[:page])
     elsif params[:search].present?
-      @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
+      @posts = Post.where(status: "public").search(params[:search]).order(created_at: :desc)
+      @posts = Kaminari.paginate_array(@posts).page(params[:page])
     elsif params[:category_id].present?
       @category = Category.find(params[:category_id])
-      @posts = @category.posts.where(status: "public").sort {|a,b| b.favorites.size <=> a.favorites.size}
+      @posts = @category.posts.where(status: "public").order(created_at: :desc)
+      @posts = Kaminari.paginate_array(@posts).page(params[:page])
     else
-      @posts = Post.where(status: "public").all.order(created_at: :desc)
+      @posts = Post.where(status: "public").all.order(created_at: :desc).page(params[:page])
     end
     @tags = Tag.all
     @categories = Category.all
@@ -53,6 +55,7 @@ class Public::PostsController < ApplicationController
 
   def bookmark
     @favorites = Favorite.where(user_id: current_user.id)
+    @favorites = Kaminari.paginate_array(@favorites).page(params[:page])
     @categories = Category.all
   end
 

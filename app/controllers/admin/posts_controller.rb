@@ -3,17 +3,20 @@ class Admin::PostsController < ApplicationController
 
   def index
     if params[:tag_ids]
-      @posts = []
+      tag_ids=[]
       params[:tag_ids].each do |key, value|
-        @posts += Tag.find_by(name: key).posts.where(status: "public") if value == "1"
+        tag_ids += Tag.where(name: key).pluck(:id) if value == "1"
       end
+      @posts = Post.joins(:tags).where(status: "public").where(tags:{id: tag_ids}).distinct.page(params[:page])
     elsif params[:search].present?
-      @posts = Post.where(status: "public").search(params[:search]).sort {|a,b| b.favorites.size <=> a.favorites.size}
+      @posts = Post.where(status: "public").search(params[:search]).order(created_at: :desc)
+      @posts = Kaminari.paginate_array(@posts).page(params[:page])
     elsif params[:category_id].present?
       @category = Category.find(params[:category_id])
-      @posts = @category.posts.where(status: "public").sort {|a,b| b.favorites.size <=> a.favorites.size}
+      @posts = @category.posts.where(status: "public").order(created_at: :desc)
+      @posts = Kaminari.paginate_array(@posts).page(params[:page])
     else
-      @posts = Post.where(status: "public").all.order(created_at: :desc)
+      @posts = Post.where(status: "public").all.order(created_at: :desc).page(params[:page])
     end
     @tags = Tag.all
     @categories = Category.all

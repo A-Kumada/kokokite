@@ -10,9 +10,9 @@
             <td>
               <%= link_to post_path(favorite.post),class: "text-primary font-weight-bold" do %>
               <% if favorite.post.image.attached? %>
-                <%= image_tag favorite.post.image, size: "140x140" %>
+                <%= image_tag favorite.post.image, class:"thumbnail-index" %>
               <% else %>
-                <%= image_tag 'no_image.jpg', size: "140x140" %>
+                <%= image_tag 'no_image.jpg', class:"thumbnail-index" %>
               <%end %>
               <% end %>
             </td>
@@ -23,9 +23,7 @@
                   <%= favorite.post.title.truncate(30) %>
                 </span>
               <% end %>
-              <span class="rank-nickname-font">
-                By<%= favorite.post.user.nickname %>
-              </span><br>
+              <br>
               <%= favorite.post.outline.truncate(60) %><br><br>
               カテゴリー:<%= favorite.post.category.category_name %>
               <span class="pr-3 pl-5">
@@ -39,6 +37,9 @@
         </div>
       </div>
       <% end %>
+      <div class="offset-4 pb-5">
+        <%= paginate @favorites %>
+      </div>
     </div>
   </div>
 </div>

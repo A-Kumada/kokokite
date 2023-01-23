@@ -6,14 +6,16 @@
       <h5 class="pb-1">カテゴリ検索</h5>
       <% categories.each do |category| %>
       <td>
-        <%= link_to category.category_name, posts_path(category_id: category.id), class: "text-secondary" %>
+        <%= link_to category.category_name, admin_posts_path(category_id: category.id), class: "text-secondary" %>
       </td><br>
       <% end %>
       <br><br>
       <p>タグ検索</p>
       <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
         <% Tag.all.each do |t| %>
-          <li class="tag_list"><%= check_box :tag_ids, t.name %><%= t.name %></li>
+          <label class="label">
+            <li class="tag_list"><%= check_box :tag_ids, t.name %><%= t.name %></li>
+          </label>
         <% end %>
         <%= submit_tag '検索' %>
       <% end %>

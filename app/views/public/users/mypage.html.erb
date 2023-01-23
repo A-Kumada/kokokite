@@ -9,7 +9,7 @@
         <div class="mt-1 mb-1">
           <table>
             <tr>
-              <td>
+              <td class="pb-3">
                 <%= link_to post_path(post),class: "text-primary font-weight-bold" do %>
                   <% if post.image.attached? %>
                     <%= image_tag post.image, class: "thumbnail-index" %>

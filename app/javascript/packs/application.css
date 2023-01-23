@@ -85,8 +85,12 @@
 
 .tag_list {
   list-style: none;
+  cursor: pointer;
 }
 
+.label {
+ display: block; 
+}
 
 .thumbnail {
 		width: 200px;

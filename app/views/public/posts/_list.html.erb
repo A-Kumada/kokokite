@@ -13,7 +13,9 @@
       <h5 class="pb-1">タグ検索</h5>
       <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
         <% Tag.all.each do |t| %>
-          <li class="tag_list"><%= check_box :tag_ids, t.name %><%= t.name %></li>
+          <label class="label">
+            <li class="tag_list"><%= check_box :tag_ids, t.name %><%= t.name %></li>
+          </label>
         <% end %>
         <div class="pt-2"><%= submit_tag '検索' %></div>
       <% end %>
