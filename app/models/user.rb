@@ -8,12 +8,19 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
-  validates :nickname, :name_kana,
+  validates :nickname, :name_kana, :email,
     length: { maximum: 255 }
   validates :nickname,presence: true
-  validates :name_kana,presence: true
+  validates :name_kana,presence: true, 
+  format: {
+    with: /\A[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+\z/,
+    message: "全角カタカナのみで入力して下さい"
+  }
   validates :email,presence: true
   validates :area,presence: true
+  VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
+  validates :password, format: { with: VALID_PASSWORD_REGEX }
+
 
   def self.guest
     find_or_create_by(email: 'guest@example.com' ) do |user|

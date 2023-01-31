@@ -10,7 +10,7 @@
       </td><br>
       <% end %>
       <br><br>
-      <p>タグ検索</p>
+      <h5 class="pb-1">タグ検索</h5>
       <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
         <% Tag.all.each do |t| %>
           <label class="label">

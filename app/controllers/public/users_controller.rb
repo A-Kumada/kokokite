@@ -12,10 +12,6 @@ class Public::UsersController < ApplicationController
     @posts = @user.posts.page(params[:page])
   end
 
-  def index
-    @posts = @user.posts.page(params[:page])
-  end
-
   def edit
     @user = User.find(params[:id])
     unless
